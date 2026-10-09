@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=720, height=1280" />
+    <title>LoopVideo · hero</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 720px; height: 1280px; overflow: hidden; background: #0A0C22; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0A0C22; }
+
+      /* a foto parada embaixo de tudo: é o mesmo quadro em que o vídeo começa e termina */
+      #photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+      /* o vídeo vivo aparece só acima da linha de varredura */
+      #alive { position: absolute; inset: 0; clip-path: inset(0% 0% 100% 0%); }
+      #alive video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+      /* grade de pontos: a foto "ainda parada" (só abaixo da linha) */
+      #grid { position: absolute; inset: 0; clip-path: inset(0% 0% 0% 0%);
+        background-image: radial-gradient(circle at center, rgba(122,176,255,.55) 1.4px, rgba(122,176,255,0) 2.2px);
+        background-size: 24px 24px; background-position: 12px 12px; mix-blend-mode: screen; opacity: .55; }
+      #tint { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,12,34,.18), rgba(10,12,34,.05) 40%, rgba(10,12,34,.35));
+        pointer-events: none; }
+
+      /* linha de varredura */
+      #scan { position: absolute; left: 0; top: 0; width: 720px; height: 160px; opacity: 0; }
+      #scan .band { position: absolute; left: 0; right: 0; bottom: 0; height: 160px;
+        background: linear-gradient(180deg, rgba(59,140,245,0), rgba(122,120,245,.16) 70%, rgba(180,60,240,.30)); }
+      #scan .line { position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+        background: linear-gradient(90deg, #3B8CF5, #B43CF0); box-shadow: 0 0 24px 6px rgba(140,90,245,.55); }
+
+      /* cantos de visor */
+      .corner { position: absolute; width: 56px; height: 56px; border-color: rgba(238,240,250,.85); border-style: solid; border-width: 0; }
+      #c1 { left: 36px; top: 36px; border-left-width: 3px; border-top-width: 3px; border-top-left-radius: 14px; }
+      #c2 { right: 36px; top: 36px; border-right-width: 3px; border-top-width: 3px; border-top-right-radius: 14px; }
+      #c3 { left: 36px; bottom: 36px; border-left-width: 3px; border-bottom-width: 3px; border-bottom-left-radius: 14px; }
+      #c4 { right: 36px; bottom: 36px; border-right-width: 3px; border-bottom-width: 3px; border-bottom-right-radius: 14px; }
+      #corners { position: absolute; inset: 0; opacity: 1; }
+      #vign { position: absolute; inset: 0; box-shadow: inset 0 0 160px 30px rgba(10,12,34,.55); pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="15.66" data-width="720" data-height="1280">
+      <img id="photo" src="assets/medico-foto.jpg" alt="" />
+      <div id="alive">
+        <video id="vid" class="clip" src="assets/medico-loop.mp4" data-start="0.6" data-duration="14.458" data-media-start="0"
+          data-track-index="1" muted playsinline></video>
+      </div>
+      <div id="grid"></div>
+      <div id="tint"></div>
+      <div id="vign"></div>
+      <div id="corners"><div class="corner" id="c1"></div><div class="corner" id="c2"></div><div class="corner" id="c3"></div><div class="corner" id="c4"></div></div>
+      <div id="scan"><div class="band"></div><div class="line"></div></div>
+    </div>
+    <script>
+      const H = 1280;
+      const tl = gsap.timeline({ paused: true });
+      const IN = "power3.out", OUT = "power2.in", IO = "power2.inOut";
+
+      // estado inicial = estado final (o vídeo fecha em loop)
+      tl.set("#alive", { clipPath: "inset(0% 0% 100% 0%)" }, 0)
+        .set("#grid", { clipPath: "inset(0% 0% 0% 0%)", opacity: 0.55 }, 0)
+        .set("#scan", { y: -160, opacity: 0 }, 0)
+        .set("#corners", { opacity: 1, scale: 1 }, 0);
+
+      // 1) a foto ganha vida: varredura de cima pra baixo
+      const D1 = 1.25, T1 = 0.6;
+      tl.to("#scan", { opacity: 1, duration: 0.2, ease: IN }, T1)
+        .to("#scan", { y: H - 157, duration: D1, ease: IO }, T1)
+        .to("#alive", { clipPath: "inset(0% 0% 0% 0%)", duration: D1, ease: IO }, T1)
+        .to("#grid", { clipPath: "inset(100% 0% 0% 0%)", duration: D1, ease: IO }, T1)
+        .to("#scan", { opacity: 0, duration: 0.35, ease: OUT }, T1 + D1 - 0.1)
+        .to("#corners", { opacity: 0, scale: 1.04, duration: 0.5, ease: OUT, transformOrigin: "50% 50%" }, T1 + D1 - 0.2);
+
+      // 2) fala (o vídeo roda sozinho)
+
+      // 3) volta ao começo: a linha sobe e a foto parada volta a cobrir (é o mesmo quadro)
+      const T3 = 14.1, D3 = 0.95;
+      tl.set("#scan", { y: H - 157 }, T3 - 0.01)
+        .to("#scan", { opacity: 1, duration: 0.2, ease: IN }, T3)
+        .to("#scan", { y: -160, duration: D3, ease: IO }, T3)
+        .to("#alive", { clipPath: "inset(0% 0% 100% 0%)", duration: D3, ease: IO }, T3)
+        .to("#grid", { clipPath: "inset(0% 0% 0% 0%)", duration: D3, ease: IO }, T3)
+        .to("#scan", { opacity: 0, duration: 0.25, ease: OUT }, T3 + D3 - 0.2)
+        .fromTo("#corners", { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.5, ease: IN, transformOrigin: "50% 50%" }, T3 + 0.3);
+
+      tl.to({}, { duration: 0.01 }, 15.65);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
