@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>LoopVideo · Sua foto falando em loop de 2:30</title>
+  <meta name="description" content="App para Windows que transforma uma foto num vídeo da pessoa falando, em loop de 2:30 sem pulo. Fundo pronto pra VSL e anúncio.">
+  <meta name="theme-color" content="#0A0C22">
+  <meta name="color-scheme" content="dark">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="LoopVideo">
+  <meta property="og:title" content="LoopVideo · uma foto vira 2:30 de vídeo falando">
+  <meta property="og:description" content="Solte a foto, aprove o principal e receba um loop de 2:30 que volta ao começo sem corte aparente. Mais imagens, prova visual e mockup no mesmo app.">
+  <meta property="og:image" content="assets/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="LoopVideo: uma foto vira um vídeo da pessoa falando, em loop de 2:30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LoopVideo · uma foto vira 2:30 de vídeo falando">
+  <meta name="twitter:description" content="Solte a foto, aprove o principal e receba um loop de 2:30 que volta ao começo sem corte aparente. Mais imagens, prova visual e mockup no mesmo app.">
+  <meta name="twitter:image" content="assets/img/og.jpg">
+
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+  <link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/video/hero-poster.webp" as="image" type="image/webp" fetchpriority="high">
+  <link rel="stylesheet" href="assets/css/site.css">
+
+  <script>
+    document.documentElement.classList.add("js");
+    // se o GSAP não carregar, nada fica escondido
+    setTimeout(function () { if (!window.gsap) document.documentElement.classList.remove("js"); }, 3000);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "LoopVideo",
+    "operatingSystem": "Windows 10, Windows 11",
+    "applicationCategory": "MultimediaApplication",
+    "description": "App para Windows que transforma uma foto num vídeo da pessoa falando, em loop de 2:30 sem pulo. Fundo pronto pra VSL e anúncio.",
+    "inLanguage": "pt-BR"
+  }
+  </script>
+</head>
+<body>
+  <!-- ícones de traço (mesma família do app) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="g-acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3B8CF5"/><stop offset="1" stop-color="#B43CF0"/></linearGradient>
+    </defs>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="M20.5 15.5l-5-5-9 9"/></g></symbol>
+    <symbol id="i-news" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 4.5h12a2 2 0 012 2v11a2 2 0 01-2 2h-13a2 2 0 01-2-2v-8h3"/><path d="M6.5 4.5v13.5"/><path d="M10 8.5h7M10 12h7M10 15.5h4"/></g></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></g></symbol>
+    <symbol id="i-film" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="M16 10.5l5-3v9l-5-3"/></g></symbol>
+    <symbol id="i-queue" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="4" width="17" height="4.5" rx="1.5"/><rect x="3.5" y="10.5" width="17" height="4.5" rx="1.5" opacity=".7"/><rect x="3.5" y="17" width="11" height="3.5" rx="1.5" opacity=".45"/></g></symbol>
+    <symbol id="i-resume" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4.5v4h4"/><path d="M10.5 9.5v5l4-2.5z"/></g></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="9.5" cy="8" rx="5.5" ry="3"/><path d="M4 8v4c0 1.7 2.5 3 5.5 3s5.5-1.3 5.5-3V8"/><path d="M9 15.9V16c0 1.7 2.5 3 5.5 3s5.5-1.3 5.5-3v-4c0-1.5-1.9-2.7-4.5-3"/></g></symbol>
+    <symbol id="i-tray" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="15" width="18" height="5" rx="1.5"/><path d="M12 4v8M8.5 8.5L12 12l3.5-3.5"/><circle cx="17.5" cy="17.5" r=".6" fill="currentColor"/></g></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16.5V11a6 6 0 0112 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 004 0"/></g></symbol>
+    <symbol id="i-update" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12a7.5 7.5 0 01-13 5.1M4.5 12a7.5 7.5 0 0113-5.1"/><path d="M17.5 3.5v3.6h-3.6M6.5 20.5v-3.6h3.6"/></g></symbol>
+    <symbol id="i-cut" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6.5" cy="17" r="2.5"/><circle cx="17.5" cy="17" r="2.5"/><path d="M8.3 15.2L18 4M15.7 15.2L6 4"/></g></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></g></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.5l9 4.5-9 4.5-9-4.5z"/><path d="M3 12l9 4.5 9-4.5M3 16l9 4.5 9-4.5"/></g></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4.5L15.5 5a2.1 2.1 0 013 3L8 18.5z"/><path d="M13.5 7l3 3"/></g></symbol>
+    <symbol id="i-chain" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></g></symbol>
+    <symbol id="i-windows" viewBox="0 0 24 24"><path d="M3.5 5.6l7-1v6.9h-7zM11.8 4.4l8.7-1.2v8.3h-8.7zM3.5 12.5h7v6.9l-7-1zM11.8 12.5h8.7v8.3l-8.7-1.2z" fill="currentColor"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></g></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18.5 9.5a7 7 0 10.2 6"/><path d="M19 4.5v5h-5"/></g></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  </svg>
+
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- [nav] -->
+  <header class="nav" id="nav">
+    <div class="wrap nav__in">
+      <a class="brand" href="#topo" aria-label="LoopVideo, voltar ao topo">
+        <img src="assets/img/icone-64.webp" width="32" height="32" alt="">
+        <span>LoopVideo</span>
+      </a>
+      <nav class="nav__links" aria-label="Seções">
+        <a href="#loop">Como funciona</a>
+        <a href="#ferramentas">Ferramentas</a>
+        <a href="#custos">Custos</a>
+        <a href="#oferta">Preço</a>
+        <a href="#faq">Dúvidas</a>
+      </nav>
+      <a class="btn btn--nav" href="#oferta" data-cta="nav">Quero o LoopVideo</a>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- [hero] -->
+    <section class="hero" id="topo" aria-labelledby="hero-titulo">
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__glow"></div>
+        <div class="floor"><div class="floor__grid"></div></div>
+      </div>
+
+      <div class="wrap hero__in">
+        <div class="hero__copy">
+          <p class="pill" data-intro><svg class="ico"><use href="#i-windows"/></svg>App para Windows · fundo de VSL e anúncio</p>
+          <h1 id="hero-titulo" class="hero__title" data-intro>Sua foto falando por 2:30. E volta sem pulo.</h1>
+          <p class="hero__sub" data-intro>Solte uma foto, escolha Homem ou Mulher e receba um MP4 da pessoa falando, em loop de 2:30 que emenda no começo sem corte aparente. Sem ator, sem gravação.</p>
+          <div class="hero__ctas" data-intro>
+            <a class="btn btn--primary btn--lg" href="#oferta" data-cta="hero">Quero o LoopVideo</a>
+            <a class="btn btn--ghost btn--lg" href="#loop"><svg class="ico"><use href="#i-play"/></svg>Ver como funciona</a>
+          </div>
+          <ul class="checks" data-intro>
+            <li><svg class="ico"><use href="#i-check"/></svg><span>Você aprova antes de gastar</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span>Custo na tela antes</span></li>
+            <li><svg class="ico"><use href="#i-check"/></svg><span>Sem chave de API</span></li>
+          </ul>
+          <p class="req" data-intro>Windows 10 ou 11 (64 bits) · internet · conta Magnific com créditos</p>
+        </div>
+
+        <figure class="hero__stage" data-intro-stage aria-label="Exemplo: a foto de um médico vira vídeo dele falando, em loop">
+          <div class="phone" id="heroPhone">
+            <div class="phone__screen">
+              <video id="heroVideo" class="phone__video" autoplay muted loop playsinline preload="auto"
+                     poster="assets/video/hero-poster.webp" width="720" height="1280" aria-hidden="true">
+                <source src="assets/video/hero.webm" type="video/webm">
+                <source src="assets/video/hero.mp4" type="video/mp4">
+              </video>
+              <span class="tc" aria-hidden="true"><span class="tc__dot"></span><span id="heroTc">0:00</span><span class="tc__of">/ 2:30</span></span>
+            </div>
+            <!-- anel de progresso: contorna o vídeo e fecha onde começou -->
+            <svg class="phone__ring" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <rect class="ring-base" x="1" y="1" width="98" height="98" rx="9" ry="5.2" pathLength="1"/>
+              <rect class="ring-prog" id="heroRing" x="1" y="1" width="98" height="98" rx="9" ry="5.2" pathLength="1"/>
+            </svg>
+          </div>
+          <ol class="steps" id="heroSteps">
+            <li data-step="1"><span class="steps__bar"><i></i></span><span class="steps__n">1</span>Uma foto</li>
+            <li data-step="2"><span class="steps__bar"><i></i></span><span class="steps__n">2</span>A pessoa falando</li>
+            <li data-step="3"><span class="steps__bar"><i></i></span><span class="steps__n">3</span>Loop de 2:30, sem pulo</li>
+          </ol>
+        </figure>
+      </div>
+    </section>
+
+    <!-- [fatos] -->
+    <section class="fatos" id="fatos" aria-label="Em números">
+      <div class="wrap">
+        <div class="ruler" aria-hidden="true"><span class="ruler__head" id="rulerHead"></span></div>
+        <ul class="fatos__list">
+          <li><strong>1 foto</strong><span>é tudo que você precisa soltar</span></li>
+          <li><strong>2:30</strong><span>de vídeo em loop, voltando ao começo sem pulo</span></li>
+          <li><strong>2 paradas</strong><span>pra você aprovar antes de gastar o resto</span></li>
+          <li><strong>4 ferramentas</strong><span>vídeos em loop, imagens, prova visual e mockup</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- [ticker] -->
+    <section class="ticker" id="ticker" aria-label="Recursos">
+      <div class="ticker__track">
+        <ul class="ticker__row">
+          <li>Loop de 2:30</li><li>Sem pulo na emenda</li><li>Aprovação do principal</li><li>Prévia das emendas</li>
+          <li>Câmera lenta pra conferir</li><li>Fila de fotos</li><li>Retoma de onde parou</li><li>Custo antes do clique</li>
+          <li>Remover legenda</li><li>Antes e depois</li><li>Formato 9:16, 16:9, 4:5</li><li>Prova visual em qualquer idioma</li>
+          <li>Mockup do pote</li><li>Vídeos de 5 s do produto</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- [problema] -->
+    <section class="sec problema" id="problema" aria-labelledby="problema-titulo">
+      <div class="wrap split">
+        <div class="split__text">
+          <p class="eyebrow">O problema</p>
+          <h2 id="problema-titulo" class="h2">Fundo de VSL não devia dar tanto trabalho.</h2>
+          <p class="lead">Você precisa de alguém falando na tela enquanto a narração roda. Contratar e gravar custa caro e demora. A IA de vídeo ajuda, mas entrega 5 ou 10 segundos. Repetir esse trecho deixa o corte à mostra, e o público percebe.</p>
+        </div>
+        <div class="split__side">
+          <div class="jump panel" aria-hidden="true">
+            <div class="jump__head"><span>Trecho de IA repetido</span><span class="mono" id="jumpTc">0:00</span></div>
+            <div class="jump__track" id="jumpTrack">
+              <span class="jump__clip"></span><span class="jump__seam"><b>pulo</b></span>
+              <span class="jump__clip"></span><span class="jump__seam"><b>pulo</b></span>
+              <span class="jump__clip"></span>
+              <span class="jump__head-line" id="jumpHead"></span>
+            </div>
+          </div>
+          <ul class="dores">
+            <li><svg class="ico"><use href="#i-x"/></svg><span>Ator ou apresentador pra contratar, agendar e gravar</span></li>
+            <li><svg class="ico"><use href="#i-x"/></svg><span>Vídeo de IA que acaba em 10 segundos</span></li>
+            <li><svg class="ico"><use href="#i-x"/></svg><span>Loop com "pulo" visível bem na emenda</span></li>
+            <li><svg class="ico"><use href="#i-x"/></svg><span>Crédito gasto num resultado que você nem aprovou</span></li>
+            <li><svg class="ico"><use href="#i-x"/></svg><span>Horas na timeline repetindo o mesmo trecho até fechar o tempo</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="wrap">
+        <p class="virada">O LoopVideo faz a parte chata. Você solta a foto e aprova.</p>
+      </div>
+    </section>
+
+    <!-- [loop] -->
+    <section class="sec loop" id="loop" aria-labelledby="loop-titulo">
+      <div class="loop__pin" id="loopPin">
+        <div class="wrap loop__head">
+          <p class="eyebrow">Como funciona</p>
+          <h2 id="loop-titulo" class="h2">Um vídeo que termina onde começou.</h2>
+          <p class="lead">A IA de vídeo Kling, pela sua conta Magnific, cria a pessoa falando. Depois ela gera um trecho de volta, que leva o último quadro de novo ao primeiro. O app emenda tudo e repete até dar 2:30.</p>
+        </div>
+        <div class="curl" id="curl" role="img" aria-label="Ilustração: a faixa do vídeo principal e a do trecho de volta se curvam até formar um anel. O fim encaixa no começo.">
+          <svg id="curlSvg" viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs>
+              <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
+              <clipPath id="faceClip"><circle r="30"/></clipPath>
+            </defs>
+            <g id="curlWorld">
+              <path id="cGlowA" class="c-glow c-glow--a" d=""/>
+              <path id="cGlowB" class="c-glow c-glow--b" d=""/>
+              <path id="cSegA" class="c-seg c-seg--a" d=""/>
+              <path id="cSegB" class="c-seg c-seg--b" d=""/>
+              <path id="cTicks" class="c-ticks" d=""/>
+              <path id="cHatch" class="c-hatch" d=""/>
+              <g id="cLabelA" class="c-label"><text text-anchor="middle">Vídeo principal</text></g>
+              <g id="cLabelB" class="c-label c-label--b"><text text-anchor="middle">Trecho de volta</text></g>
+              <g id="cStart" class="c-face"><circle r="34" class="c-face__ring"/><image href="assets/exemplos/medico-rosto.webp" x="-30" y="-30" width="60" height="60" clip-path="url(#faceClip)"/></g>
+              <g id="cEnd" class="c-face"><circle r="34" class="c-face__ring c-face__ring--b"/><image href="assets/exemplos/medico-rosto.webp" x="-30" y="-30" width="60" height="60" clip-path="url(#faceClip)"/></g>
+              <g id="cJoin" class="c-join" opacity="0"><circle r="54" class="c-join__halo"/><text y="-64" text-anchor="middle">sem pulo</text></g>
+              <circle id="cHead" class="c-head" r="9" opacity="0"/>
+            </g>
+            <g id="cCenter" class="c-center" opacity="0">
+              <text id="cTc" class="c-center__tc" text-anchor="middle" y="16">0:00</text>
+              <text class="c-center__sub" text-anchor="middle" y="52">volta ao começo e repete</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <ul class="bullets3">
+          <li><strong>A volta é feita pela IA, não por corte.</strong> O fim do vídeo se transforma no começo, então a repetição não aparece.</li>
+          <li><strong>Você confere a emenda antes do vídeo final.</strong> O app mostra uma prévia centrada na passagem, com marcação de onde olhar e câmera lenta.</li>
+          <li><strong>Conferência automática no fim.</strong> Cada vídeo pronto vem com miniaturas das emendas e da expressão, pra bater o olho e saber se ficou bom.</li>
+        </ul>
+
+        <ol class="passos">
+          <li>
+            <span class="passos__n">1</span>
+            <h3>Solte a foto</h3>
+            <p>PNG, JPG ou WebP. Escolha Homem ou Mulher e clique em Gerar loop.</p>
+          </li>
+          <li>
+            <span class="passos__n">2</span>
+            <h3>Aprove o principal</h3>
+            <p>O app para e mostra o vídeo da pessoa falando. Gostou, aprova. Não gostou, gera outro.</p>
+          </li>
+          <li>
+            <span class="passos__n">3</span>
+            <h3>Receba o MP4</h3>
+            <p>O loop de 2:30 sai pronto na sua pasta de vídeos. É abrir e colocar na edição.</p>
+          </li>
+        </ol>
+        <p class="note">Cada vídeo leva uns 6 a 12 minutos. O MP4 sai sem áudio: é o fundo pra sua narração.</p>
+      </div>
+    </section>
+
+    <!-- [demo] -->
+    <section class="sec demo" id="demo" aria-labelledby="demo-titulo">
+      <div class="wrap split split--demo">
+        <div class="split__text">
+          <h2 id="demo-titulo" class="h2">Uma foto de jaleco. 2:30 de médico falando.</h2>
+          <p class="lead">Este é o caminho completo: a foto que entrou e o loop que saiu do app. Repare na volta pro começo.</p>
+          <p class="hint"><svg class="ico"><use href="#i-play"/></svg>Arraste a divisória pra comparar.</p>
+          <p class="note">Exemplo gerado com o LoopVideo. O resultado varia com a foto usada e com a IA escolhida.</p>
+        </div>
+        <div class="split__side">
+          <div class="compare" id="compare" style="--pos:50%">
+            <video class="compare__after" id="demoVideo" muted loop playsinline preload="none"
+                   poster="assets/exemplos/medico-foto.webp" width="720" height="1280" aria-label="Depois: o loop gerado pelo app">
+              <source data-src="assets/exemplos/medico-loop.webm" type="video/webm">
+              <source data-src="assets/exemplos/medico-loop.mp4" type="video/mp4">
+            </video>
+            <img class="compare__before" src="assets/exemplos/medico-foto.webp" width="720" height="1280" loading="lazy" decoding="async"
+                 alt="Antes: a foto de entrada, um médico de terno cinza e gravata verde num laboratório">
+            <span class="compare__tag compare__tag--a">Antes · a foto</span>
+            <span class="compare__tag compare__tag--b">Depois · o loop de 2:30</span>
+            <span class="compare__line" aria-hidden="true"><span class="compare__knob"><svg viewBox="0 0 24 24"><path d="M9 6l-5 6 5 6M15 6l5 6-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+            <input class="compare__range" id="compareRange" type="range" min="0" max="100" value="50" step="0.5"
+                   aria-label="Comparar a foto (antes) com o vídeo (depois)">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- [video-proprio] -->
+    <section class="sec sec--tight proprio" id="video-proprio" aria-labelledby="proprio-titulo">
+      <div class="wrap">
+        <div class="proprio__card panel">
+          <div class="proprio__text">
+            <h2 id="proprio-titulo" class="h3">Já tem um vídeo? <span class="nowrap">O app só fecha o loop.</span></h2>
+            <p>Solte o seu vídeo no lugar da foto e a IA gera só o trecho de volta pro começo. Custa cerca de 325 créditos em vez de 775, e você continua conferindo a emenda antes do vídeo final.</p>
+          </div>
+          <div class="proprio__viz" id="proprioViz" aria-hidden="true">
+            <div class="pv__row">
+              <span class="pv__bar pv__bar--mine"><span>Seu vídeo</span></span>
+              <span class="pv__bar pv__bar--back"><span>volta</span></span>
+            </div>
+            <svg class="pv__arc" viewBox="0 0 300 46" preserveAspectRatio="none"><path id="pvArc" d="M292 4 C292 40, 8 40, 8 4" fill="none"/></svg>
+            <div class="pv__cost">
+              <span class="pv__old">~775 cr</span>
+              <span class="pv__new">~325 cr</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- [ferramentas] -->
+    <section class="sec ferramentas" id="ferramentas" aria-labelledby="ferr-titulo">
+      <div class="wrap">
+        <div class="sec__head">
+          <h2 id="ferr-titulo" class="h2">E mais três ferramentas no mesmo app.</h2>
+          <p class="lead">Coisas que todo criativo precisa e que você hoje faz em cinco lugares diferentes. O custo de cada uma aparece no botão.</p>
+        </div>
+
+        <div class="tools">
+          <div class="tools__tabs" role="tablist" aria-label="Ferramentas">
+            <button class="tool is-on" role="tab" id="tab-imagens" aria-controls="toolsPanel" aria-selected="true" data-tool="0">
+              <span class="tool__top"><svg class="ico"><use href="#i-image"/></svg><span class="tool__name">Imagens</span></span>
+              <span class="tool__frase">Arruma a imagem antes dela virar criativo.</span>
+              <ul class="tool__list">
+                <li>Tira legenda e marca d'água, mantendo o resto igual</li>
+                <li>Faz fotos de antes e depois e melhora a qualidade</li>
+                <li>Muda o formato (9:16, 16:9, 4:5) e a IA preenche o que falta</li>
+              </ul>
+              <span class="tool__prog"><i></i></span>
+            </button>
+            <button class="tool" role="tab" id="tab-prova" aria-controls="toolsPanel" aria-selected="false" data-tool="1">
+              <span class="tool__top"><svg class="ico"><use href="#i-news"/></svg><span class="tool__name">Prova visual</span></span>
+              <span class="tool__frase">Cole um texto e saia com uma página de portal, revista ou blog pra mostrar no vídeo.</span>
+              <ul class="tool__list">
+                <li>Matéria real resumida, com o nome do veículo e o link no rodapé</li>
+                <li>O texto entra em qualquer língua e a página sai no idioma que você escolher</li>
+                <li>Estudo e número só entram com fonte real. Sem fonte, o app recusa antes de gastar</li>
+              </ul>
+              <span class="tool__prog"><i></i></span>
+            </button>
+            <button class="tool" role="tab" id="tab-mockup" aria-controls="toolsPanel" aria-selected="false" data-tool="2">
+              <span class="tool__top"><svg class="ico"><use href="#i-box"/></svg><span class="tool__name">Mockup</span></span>
+              <span class="tool__frase">Da foto do pote para o produto em cena, e da cena para o vídeo.</span>
+              <ul class="tool__list">
+                <li>As cores do pote viram a paleta das cenas, sem texto no fundo</li>
+                <li>Escolha o nicho e o tipo de cena: produto sozinho, com pessoa ou indústria</li>
+                <li>Marque as melhores imagens e elas viram vídeos de 5 s</li>
+              </ul>
+              <span class="tool__prog"><i></i></span>
+            </button>
+          </div>
+
+          <div class="tools__screen" id="toolsPanel" role="tabpanel" aria-labelledby="tab-imagens">
+            <div class="win">
+              <div class="win__bar" aria-hidden="true">
+                <img src="assets/img/icone-64.webp" width="16" height="16" alt="">
+                <span>LoopVideo</span>
+                <span class="win__ctl"><i></i><i></i><i></i></span>
+              </div>
+              <div class="win__body">
+                <video id="toolsVideo" muted loop playsinline preload="none" width="1184" height="640"
+                       poster="assets/video/ferramentas-poster.webp" aria-label="As abas Imagens, Prova visual e Mockup do LoopVideo em uso">
+                  <source data-src="assets/video/ferramentas.webm" type="video/webm">
+                  <source data-src="assets/video/ferramentas.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="extra"><svg class="ico"><use href="#i-chain"/></svg>Dá pra encadear: o resultado de uma ferramenta vira a entrada da próxima.</p>
+      </div>
+    </section>
+
+    <!-- [dia-a-dia] -->
+    <section class="sec dia" id="dia-a-dia" aria-labelledby="dia-titulo">
+      <div class="wrap">
+        <h2 id="dia-titulo" class="h2 sec__h">Feito pra rodar enquanto você trabalha.</h2>
+        <ul class="grid6">
+          <li><svg class="ico ico--lg"><use href="#i-queue"/></svg><h3>Fila de fotos</h3><p>Solte várias de uma vez. O app gera uma depois da outra.</p></li>
+          <li><svg class="ico ico--lg"><use href="#i-resume"/></svg><h3>Retoma sozinho</h3><p>Fechou no meio? Ao abrir de novo, continua de onde parou, sem cobrar de novo o que já saiu.</p></li>
+          <li><svg class="ico ico--lg"><use href="#i-coins"/></svg><h3>Custo antes</h3><p>Cada botão mostra quantos créditos vai gastar antes do clique.</p></li>
+          <li><svg class="ico ico--lg"><use href="#i-tray"/></svg><h3>Perto do relógio</h3><p>Minimiza pra bandeja e segue gerando enquanto você usa o PC.</p></li>
+          <li><svg class="ico ico--lg"><use href="#i-bell"/></svg><h3>Avisos do Windows</h3><p>Com o sino ligado, o Windows avisa quando ficou pronto, deu erro ou precisa da sua aprovação.</p></li>
+          <li><svg class="ico ico--lg"><use href="#i-update"/></svg><h3>Atualiza num clique</h3><p>Saiu versão nova, aparece o aviso. Um clique e o app se atualiza.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- [antes-depois] -->
+    <section class="sec versus" id="antes-depois" aria-labelledby="versus-titulo">
+      <div class="wrap">
+        <h2 id="versus-titulo" class="h2 sec__h">A mesma VSL, dois caminhos.</h2>
+        <div class="versus__grid">
+          <div class="vs vs--sem">
+            <h3>Sem o LoopVideo</h3>
+            <ul>
+              <li><svg class="ico"><use href="#i-x"/></svg><span>Ator, cachê e agenda de gravação</span></li>
+              <li><svg class="ico"><use href="#i-x"/></svg><span>Trecho de IA de 10 segundos repetido na mão</span></li>
+              <li><svg class="ico"><use href="#i-x"/></svg><span>Emenda com pulo que o público nota</span></li>
+              <li><svg class="ico"><use href="#i-x"/></svg><span>Crédito gasto antes de ver o resultado</span></li>
+              <li><svg class="ico"><use href="#i-x"/></svg><span>Imagem, prova e mockup feitos em sites diferentes</span></li>
+            </ul>
+          </div>
+          <div class="vs vs--com">
+            <h3><img src="assets/img/icone-64.webp" width="24" height="24" alt="">Com o LoopVideo</h3>
+            <ul>
+              <li><svg class="ico"><use href="#i-check"/></svg><span>Uma foto e um clique</span></li>
+              <li><svg class="ico"><use href="#i-check"/></svg><span>2:30 contínuos, prontos pra timeline</span></li>
+              <li><svg class="ico"><use href="#i-check"/></svg><span>Volta ao começo sem corte aparente</span></li>
+              <li><svg class="ico"><use href="#i-check"/></svg><span>Você aprova o principal antes de gastar o resto</span></li>
+              <li><svg class="ico"><use href="#i-check"/></svg><span>Quatro ferramentas no mesmo app</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- [para-quem] -->
+    <section class="sec quem" id="para-quem" aria-labelledby="quem-titulo">
+      <div class="wrap">
+        <h2 id="quem-titulo" class="h2 sec__h">Pra quem vive de criativo.</h2>
+        <ul class="quem__list">
+          <li><svg class="ico ico--lg"><use href="#i-cut"/></svg><h3>Editor de vídeo</h3><p>Entrega o fundo da VSL sem esperar gravação nem montar loop na mão.</p></li>
+          <li><svg class="ico ico--lg"><use href="#i-target"/></svg><h3>Gestor de tráfego</h3><p>Testa mais rostos e formatos no anúncio sem depender de ninguém.</p></li>
+          <li><svg class="ico ico--lg"><use href="#i-layers"/></svg><h3>Produtor e agência</h3><p>Põe várias fotos na fila e deixa o app trabalhar enquanto cuida do resto.</p></li>
+          <li><svg class="ico ico--lg"><use href="#i-pen"/></svg><h3>Copywriter</h3><p>Monta a VSL com apresentador e prova visual sem abrir um editor.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- [custos] -->
+    <section class="sec custos" id="custos" aria-labelledby="custos-titulo">
+      <div class="wrap split">
+        <div class="split__text">
+          <p class="eyebrow">Transparência</p>
+          <h2 id="custos-titulo" class="h2">Você paga a IA direto na fonte.</h2>
+          <p class="lead">A IA de vídeo roda na sua própria conta Magnific. Você conecta com o login no navegador, sem chave de API, e os créditos saem de lá, sem margem nossa no meio. O app mostra o custo antes de cada clique e para pra você aprovar o vídeo principal antes de gastar o resto.</p>
+        </div>
+        <div class="split__side">
+          <div class="receipt panel">
+            <dl>
+              <div class="receipt__row"><dt>Loop a partir de uma foto</dt><dd>cerca de <b>775</b> créditos</dd></div>
+              <div class="receipt__row"><dt>Loop a partir de um vídeo seu</dt><dd>cerca de <b>325</b> créditos</dd></div>
+            </dl>
+            <p class="receipt__note">Valores com as opções padrão. Gerar de novo um trecho custa cerca de 450 créditos. Trocar a IA ou subir pra 4K pode custar mais, e o app mostra a diferença antes de você gerar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- [oferta] -->
+    <section class="sec oferta" id="oferta" aria-labelledby="oferta-titulo">
+      <div class="wrap">
+        <div class="sec__head sec__head--center">
+          <p class="eyebrow">Acesso</p>
+          <h2 id="oferta-titulo" class="h2">Tudo pronto pra sua próxima VSL.</h2>
+        </div>
+
+        <div class="offer">
+          <div class="offer__card">
+            <h3 class="offer__name">LoopVideo · <span class="ph" data-cfg="plano">[PLANO: mensal ou vitalício]</span></h3>
+            <ul class="offer__list">
+              <li><svg class="ico"><use href="#i-check"/></svg><span>Vídeos em loop de 2:30 a partir de uma foto</span></li>
+              <li><svg class="ico"><use href="#i-check"/></svg><span>Loop a partir de um vídeo seu, pela metade do custo</span></li>
+              <li><svg class="ico"><use href="#i-check"/></svg><span>Aprovação do principal e conferência da emenda</span></li>
+              <li><svg class="ico"><use href="#i-check"/></svg><span>Aba Imagens: remover textos, antes e depois, qualidade e formato</span></li>
+              <li><svg class="ico"><use href="#i-check"/></svg><span>Aba Prova visual: páginas de portal, revista e blog em qualquer idioma</span></li>
+              <li><svg class="ico"><use href="#i-check"/></svg><span>Aba Mockup: cenas do produto e vídeos de 5 s</span></li>
+              <li><svg class="ico"><use href="#i-check"/></svg><span>Fila, retomada e avisos do Windows</span></li>
+              <li><svg class="ico"><use href="#i-check"/></svg><span>Atualizações num clique · ativação em <span class="ph" data-cfg="qtdPcs">[QTD_PCS]</span> PC(s)</span></li>
+            </ul>
+            <div class="offer__price">
+              <p class="offer__anchor">de <s class="ph" data-cfg="precoAncora">[PREÇO_ANCORA]</s></p>
+              <p class="offer__value">por <strong class="ph" data-cfg="preco">[PREÇO]</strong></p>
+              <p class="offer__inst">ou <span class="ph" data-cfg="parcelas">[PARCELAS]</span></p>
+            </div>
+            <a class="btn btn--primary btn--lg btn--block" href="#oferta" data-cfg-href="linkCheckout" data-cta="oferta">Quero o LoopVideo</a>
+            <p class="offer__safe"><svg class="ico"><use href="#i-lock"/></svg><span>Pagamento processado pela <span class="ph" data-cfg="plataformaPagamento">[PLATAFORMA_PAGAMENTO]</span>. Você recebe o código de ativação no seu e-mail.</span></p>
+            <p class="offer__req">Windows 10 ou 11 (64 bits) · internet · conta Magnific com créditos (cobrados à parte, pela Magnific)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- [garantia] -->
+    <section class="sec sec--tight garantia" id="garantia" aria-labelledby="garantia-titulo">
+      <div class="wrap garantia__in">
+        <div class="seal" aria-hidden="true">
+          <svg viewBox="0 0 200 200" class="seal__ring">
+            <defs><path id="sealPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+            <text textLength="488" lengthAdjust="spacing"><textPath href="#sealPath" startOffset="0" textLength="488" lengthAdjust="spacing">garantia · garantia · garantia · garantia · </textPath></text>
+          </svg>
+          <span class="seal__core"><b class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</b><small>dias</small></span>
+        </div>
+        <div class="garantia__text">
+          <h2 id="garantia-titulo" class="h3"><span class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</span> dias pra testar.</h2>
+          <p>Instale, gere seus loops e use as outras ferramentas. Se dentro de <span class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</span> dias você achar que o LoopVideo não serve pro seu trabalho, peça o reembolso pela <span class="ph" data-cfg="plataformaPagamento">[PLATAFORMA_PAGAMENTO]</span> ou pelo <span class="ph" data-cfg="emailSuporte">[EMAIL_SUPORTE]</span> e devolvemos o valor do app. Os créditos gastos na Magnific são da sua conta lá e não entram nesse reembolso.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- [faq] -->
+    <section class="sec faq" id="faq" aria-labelledby="faq-titulo">
+      <div class="wrap faq__in">
+        <h2 id="faq-titulo" class="h2 faq__title">Perguntas frequentes</h2>
+        <div class="faq__list">
+          <details><summary>Funciona no Mac?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Não. O LoopVideo é um app para Windows 10 ou 11, 64 bits.</p></div></details>
+          <details><summary>Preciso de placa de vídeo boa?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>A IA que cria o vídeo roda na nuvem, pela sua conta Magnific. O seu PC só faz a montagem final, uma por vez e com prioridade baixa, pra você continuar usando o computador.</p></div></details>
+          <details><summary>Quanto custa a IA?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Os créditos são da Magnific, na sua conta. Um loop a partir de foto custa cerca de 775 créditos; a partir de um vídeo seu, cerca de 325. Cada botão do app mostra o custo antes do clique.</p></div></details>
+          <details><summary>Preciso de conta na Magnific?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Sim, com créditos. Você conecta pelo login no navegador, sem chave de API. O app fica travado até conectar, porque todas as ferramentas usam essa conta.</p></div></details>
+          <details><summary>Em quantos computadores posso usar?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>A licença ativa <span class="ph" data-cfg="qtdPcs">[QTD_PCS]</span> PC(s). Vai trocar de computador? Fale com a gente pelo <span class="ph" data-cfg="emailSuporte">[EMAIL_SUPORTE]</span> e liberamos a troca.</p></div></details>
+          <details><summary>É assinatura?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>O plano é <span class="ph" data-cfg="plano">[PLANO: mensal ou vitalício]</span>. <span class="ph" data-plano="mensal">[Se mensal: renova a cada 30 dias e você pode cancelar quando quiser.]</span> <span class="ph" data-plano="vitalicio">[Se vitalício: paga uma vez e usa sem mensalidade.]</span> Os créditos da Magnific são cobrados à parte, por ela.</p></div></details>
+          <details><summary>Como eu recebo?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Depois do pagamento, você recebe por e-mail o link de download e o seu código de ativação. Instala, digita o código e o app libera na hora.</p></div></details>
+          <details><summary>Precisa de internet?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Sim. A IA roda na Magnific e o app confere a licença online.</p></div></details>
+          <details><summary>Funciona com qualquer foto?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Aceita PNG, JPG ou WebP de até 25 MB. Você escolhe Homem ou Mulher e o app cuida do resto. O resultado varia com a foto, por isso existe a aprovação: se o principal não ficou bom, você gera outro antes de gastar o resto.</p></div></details>
+          <details><summary>O vídeo sai com voz?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Não. O MP4 sai sem áudio: é a pessoa falando como fundo, pra você colocar a sua narração por cima.</p></div></details>
+          <details><summary>Posso usar em anúncio?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>O vídeo é gerado na sua conta Magnific e o arquivo fica no seu PC. Use foto que você tem direito de usar e siga as regras da plataforma onde vai anunciar.</p></div></details>
+          <details><summary>E se eu não gostar?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Você tem <span class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</span> dias de garantia. Peça o reembolso pela <span class="ph" data-cfg="plataformaPagamento">[PLATAFORMA_PAGAMENTO]</span> ou pelo <span class="ph" data-cfg="emailSuporte">[EMAIL_SUPORTE]</span>.</p></div></details>
+          <details><summary>O Windows mostrou um aviso ao instalar. É normal?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>É. Na primeira vez o SmartScreen pode avisar "aplicativo desconhecido". Clique em Mais informações e depois em Executar assim mesmo. A instalação não pede senha de administrador.</p></div></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- [cta-final] -->
+    <section class="final" id="cta-final" aria-labelledby="final-titulo">
+      <div class="final__bg" aria-hidden="true">
+        <div class="hero__glow hero__glow--final"></div>
+        <div class="floor floor--final"><div class="floor__grid"></div></div>
+      </div>
+      <div class="wrap final__in">
+        <img class="final__icon" src="assets/img/icone.png" width="96" height="96" alt="" loading="lazy">
+        <h2 id="final-titulo" class="final__title">Sua próxima VSL começa com uma foto.</h2>
+        <p class="lead">Solte a foto, aprove o principal e receba 2:30 de vídeo que volta ao começo sem pulo.</p>
+        <a class="btn btn--primary btn--lg" href="#oferta" data-cfg-href="linkCheckout" data-cta="final">Quero o LoopVideo</a>
+        <ul class="checks checks--center">
+          <li><svg class="ico"><use href="#i-check"/></svg><span>Garantia de <span class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</span> dias</span></li>
+          <li><svg class="ico"><use href="#i-check"/></svg><span>Ativação na hora</span></li>
+          <li><svg class="ico"><use href="#i-check"/></svg><span>Custo sempre visível</span></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- [rodape] -->
+  <footer class="foot" id="rodape">
+    <div class="wrap foot__in">
+      <p class="foot__line"><img src="assets/img/icone-64.webp" width="20" height="20" alt="" loading="lazy">LoopVideo · app para Windows que transforma uma foto num vídeo falando, em loop.</p>
+      <p class="foot__meta">
+        <span>Suporte: <a class="ph" data-cfg="emailSuporte" data-cfg-mailto href="#">[EMAIL_SUPORTE]</a></span>
+        <span>Desenvolvido por <a href="https://rafaguiar-dev.github.io/" rel="noopener">rafaguiar.dev</a></span>
+        <a class="foot__top" href="#topo"><svg class="ico"><use href="#i-up"/></svg>Voltar ao começo</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
