@@ -3,16 +3,27 @@
    amarelo na página até ser preenchido. Ex.: preco: "R$ 297", linkCheckout: "https://pay.exemplo.com/..."
    ===================================================================================================== */
 const CONFIG = {
-  plano: "[PLANO: mensal ou vitalício]",      // "mensal" ou "vitalício" (também escolhe a resposta da FAQ "É assinatura?")
-  preco: "[PREÇO]",                           // ex.: "R$ 297"
-  precoAncora: "[PREÇO_ANCORA]",              // ex.: "R$ 497"
-  parcelas: "[PARCELAS]",                     // ex.: "12x de R$ 29,70"
-  qtdPcs: "[QTD_PCS]",                        // ex.: "1"
-  diasGarantia: "[DIAS_GARANTIA]",            // ex.: "7"
-  linkCheckout: "[LINK_CHECKOUT]",            // URL do checkout (botões da oferta e da chamada final)
-  plataformaPagamento: "[PLATAFORMA_PAGAMENTO]", // ex.: "Hotmart"
-  emailSuporte: "[EMAIL_SUPORTE]",            // ex.: "suporte@exemplo.com"
+  plano: "[PLANO: mensal ou vitalício]",          // "mensal" ou "vitalício" (também escolhe a resposta da FAQ "É assinatura?")
+  preco: "[PREÇO]",                               // ex.: "R$ 297"
+  precoAncora: "[PREÇO_ANCORA]",                  // ex.: "R$ 497"
+  parcelas: "[PARCELAS]",                         // ex.: "12x de R$ 29,70"
+  qtdPcs: "[QTD_PCS]",                            // ex.: "1"
+  diasGarantia: "[DIAS_GARANTIA]",                // ex.: "7"
+  linkCheckout: "[LINK_CHECKOUT]",                // checkout do plano Individual
+  linkContato: "[LINK_CONTATO]",                  // contato do plano Empresarial (WhatsApp, formulário ou mailto:)
+  plataformaPagamento: "[PLATAFORMA_PAGAMENTO]",  // ex.: "Hotmart"
+  emailSuporte: "[EMAIL_SUPORTE]",                // ex.: "suporte@exemplo.com"
+  duracaoMin: "[DURAÇÃO_MIN]",                    // ex.: "1:00" (FAQ "Qual a duração do vídeo?")
+  duracaoMax: "[DURAÇÃO_MAX]",                    // ex.: "4:00"
 };
+
+/* Personagens que se revezam no celular do topo (depois do vídeo de abertura). */
+const HERO_LOOPS = [
+  { video: "assets/exemplos/loops/ruiva.mp4", foto: "assets/exemplos/loops/ruiva.jpg" },
+  { video: "assets/exemplos/loops/homem-oculos.mp4", foto: "assets/exemplos/loops/homem-oculos.jpg" },
+  { video: "assets/exemplos/loops/mae-bebe.mp4", foto: "assets/exemplos/loops/mae-bebe.jpg" },
+  { video: "assets/exemplos/loops/cirurgiao.mp4", foto: "assets/exemplos/loops/cirurgiao.jpg" },
+];
 
 (function () {
   "use strict";
@@ -21,34 +32,34 @@ const CONFIG = {
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const isSet = (v) => typeof v === "string" && v.trim() !== "" && !/^\[.*\]$/.test(v.trim());
+  const pad = (n) => String(Math.floor(n)).padStart(2, "0");
+  const hms = (s) => pad(s / 3600) + ":" + pad((s % 3600) / 60) + ":" + pad(s % 60);
+  const play = (v) => { const p = v.play(); p && p.catch(() => {}); };
+  const hasIO = "IntersectionObserver" in window;
 
   /* ---------- CONFIG → página ---------- */
-  function applyConfig() {
-    $$("[data-cfg]").forEach((el) => {
-      const v = CONFIG[el.dataset.cfg];
-      if (isSet(v)) { el.textContent = v; el.classList.remove("ph"); }
-    });
-    $$("[data-cfg-href]").forEach((a) => {
-      const v = CONFIG[a.dataset.cfgHref];
-      if (isSet(v)) { a.href = v; a.rel = "noopener"; }
-      else { a.href = "#oferta"; a.title = "Defina CONFIG." + a.dataset.cfgHref + " em assets/js/main.js"; }
-    });
-    $$("[data-cfg-mailto]").forEach((a) => {
-      const v = CONFIG[a.dataset.cfg];
-      if (isSet(v)) a.href = "mailto:" + v;
-    });
-    // FAQ "É assinatura?": mostra só a frase do plano escolhido
+  $$("[data-cfg]").forEach((el) => {
+    const v = CONFIG[el.dataset.cfg];
+    if (isSet(v)) { el.textContent = v; el.classList.remove("ph"); }
+  });
+  $$("[data-cfg-href]").forEach((a) => {
+    const v = CONFIG[a.dataset.cfgHref];
+    if (isSet(v)) { a.href = v; a.rel = "noopener"; }
+    else { a.href = "#oferta"; a.title = "Defina CONFIG." + a.dataset.cfgHref + " em assets/js/main.js"; }
+  });
+  $$("[data-cfg-link]").forEach((a) => {
+    const v = CONFIG[a.dataset.cfgLink];
+    if (isSet(v)) { a.href = v; a.rel = "noopener"; a.textContent = a.dataset.cfgLabel || "Falar com a gente"; a.classList.remove("ph"); }
+  });
+  $$("[data-cfg-mailto]").forEach((a) => { const v = CONFIG[a.dataset.cfg]; if (isSet(v)) a.href = "mailto:" + v; });
+  {
     const plano = isSet(CONFIG.plano) ? CONFIG.plano.toLowerCase() : "";
-    const frases = { mensal: "Renova a cada 30 dias e você pode cancelar quando quiser.", vitalicio: "Paga uma vez e usa sem mensalidade." };
+    const frases = { mensal: "Renova a cada 30 dias e você cancela quando quiser.", vitalicio: "Paga uma vez e usa sem mensalidade." };
     const escolhido = /mensal/.test(plano) ? "mensal" : /vital/.test(plano) ? "vitalicio" : "";
-    if (escolhido) {
-      $$("[data-plano]").forEach((el) => {
-        if (el.dataset.plano === escolhido) { el.textContent = frases[escolhido]; el.classList.remove("ph"); }
-        else el.remove();
-      });
-    }
+    if (escolhido) $$("[data-plano]").forEach((el) => {
+      if (el.dataset.plano === escolhido) { el.textContent = frases[escolhido]; el.classList.remove("ph"); } else el.remove();
+    });
   }
-  applyConfig();
 
   /* ---------- ticker: duplica a fila pra rolar sem emenda ---------- */
   const row = $(".ticker__row");
@@ -59,268 +70,261 @@ const CONFIG = {
   const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 12);
   onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
   const heroCta = $('[data-cta="hero"]');
-  if (heroCta && "IntersectionObserver" in window) {
-    new IntersectionObserver(([e]) => nav.classList.toggle("is-cta", !e.isIntersecting && e.boundingClientRect.top < 0)).observe(heroCta);
-  }
+  if (heroCta && hasIO) new IntersectionObserver(([e]) => nav.classList.toggle("is-cta", !e.isIntersecting && e.boundingClientRect.top < 0)).observe(heroCta);
 
   /* ---------- vídeos: carregam perto da tela, tocam só quando visíveis ---------- */
-  function lazyVideo(video, { autoplay = true, onReady } = {}) {
-    if (!video) return () => {};
-    let loaded = false;
-    const load = () => {
-      if (loaded) return; loaded = true;
-      $$("source[data-src]", video).forEach((s) => { s.src = s.dataset.src; });
-      video.load(); onReady && onReady();
-    };
-    if (!("IntersectionObserver" in window)) { load(); return load; }
-    new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) load(); }), { rootMargin: "400px 0px" }).observe(video);
-    new IntersectionObserver((es) => es.forEach((e) => {
-      if (e.isIntersecting && autoplay && !reduce) { const p = video.play(); p && p.catch(() => {}); }
-      else if (!e.isIntersecting) video.pause();
-    }), { threshold: 0.15 }).observe(video);
-    return load;
+  // Vale pra todo <video> com data-src (ou <source data-src>), fora os do topo, do desafio e do comparador.
+  function loadVideo(v) {
+    if (v.dataset.loaded) return; v.dataset.loaded = "1";
+    if (v.dataset.src) v.src = v.dataset.src;
+    $$("source[data-src]", v).forEach((s) => { s.src = s.dataset.src; });
+    v.load();
+  }
+  const managed = $$("video").filter((v) => (v.dataset.src || v.querySelector("source[data-src]")) && !v.closest(".hunt__video, .compare"));
+  if (hasIO) {
+    const near = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { loadVideo(e.target); near.unobserve(e.target); } }), { rootMargin: "300px 0px" });
+    const vis = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting && !reduce) { loadVideo(e.target); play(e.target); } else e.target.pause();
+    }), { threshold: 0.2 });
+    managed.forEach((v) => { near.observe(v); vis.observe(v); });
+  } else managed.forEach(loadVideo);
+
+  // observa se um elemento está na tela
+  function watch(el, cb, threshold = 0.15) {
+    if (!el) return;
+    if (!hasIO) { cb(true); return; }
+    new IntersectionObserver(([e]) => cb(e.isIntersecting), { threshold }).observe(el);
   }
 
-  /* ---------- hero: anel, timecode e passos acompanham o vídeo ---------- */
-  const heroVideo = $("#heroVideo");
-  const ring = $("#heroRing");
-  const tcEl = $("#heroTc");
-  const steps = $$("#heroSteps li");
-  const HERO_D = 15.66;           // duração da composição (motion/hero)
-  const CUTS = [0, 1.85, 9.0, HERO_D];
-  const fmt = (s) => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+  /* ---------- topo: personagens se revezam, o contador só sobe ---------- */
+  const hero = (function () {
+    const A = $("#heroVideoA"), B = $("#heroVideoB");
+    if (!A) return null;
+    const ring = $("#heroRing"), tc = $("#heroTc"), scan = $("#heroScan"), intake = $("#heroIntake");
+    const steps = $$("#heroSteps li");
+    const HERO_D = 15.66, CUTS = [0, 1.85, 9.0, HERO_D];
+    let cur = A, nxt = B, idx = -1, total = 0, last = 0, visible = true, busy = false, raf = 0;
 
-  function heroFrame(t) {
-    const p = Math.min(1, Math.max(0, t / HERO_D));
-    ring.style.strokeDashoffset = String(1 - p);
-    tcEl.textContent = fmt(Math.min(150, p * 150 + 0.25));
-    steps.forEach((li, i) => {
-      const a = CUTS[i], b = CUTS[i + 1];
-      const f = Math.min(1, Math.max(0, (t - a) / (b - a)));
-      li.querySelector("i").style.transform = "scaleX(" + f + ")";
-      li.classList.toggle("is-on", t >= a && t < b);
-    });
-  }
-  if (heroVideo) {
+    function setSteps(t, d, isOpening) {
+      steps.forEach((li, i) => {
+        let f, on;
+        if (isOpening) { const a = CUTS[i], b = CUTS[i + 1]; f = Math.min(1, Math.max(0, (t - a) / (b - a))); on = t >= a && t < b; }
+        else { f = i < 2 ? 1 : Math.min(1, t / (d || 15)); on = i === 2; }
+        li.querySelector("i").style.transform = "scaleX(" + f + ")";
+        li.classList.toggle("is-on", on);
+      });
+    }
     if (reduce) {
-      heroVideo.removeAttribute("autoplay"); heroVideo.pause();
-      ring.style.strokeDashoffset = "0"; tcEl.textContent = "2:30";
+      A.removeAttribute("autoplay"); A.pause();
+      ring.style.strokeDasharray = "1 0"; tc.textContent = "00:00:00"; setSteps(HERO_D, HERO_D, true);
       steps.forEach((li) => { li.classList.add("is-on"); li.querySelector("i").style.transform = "scaleX(1)"; });
-    } else {
-      let raf = 0, visible = true;
-      const loop = () => { heroFrame(heroVideo.currentTime || 0); raf = requestAnimationFrame(loop); };
-      raf = requestAnimationFrame(loop);
-      if ("IntersectionObserver" in window) {
-        new IntersectionObserver(([e]) => {
-          visible = e.isIntersecting;
-          if (visible) { const p = heroVideo.play(); p && p.catch(() => {}); if (!raf) raf = requestAnimationFrame(loop); }
-          else { heroVideo.pause(); cancelAnimationFrame(raf); raf = 0; }
-        }, { threshold: 0.05 }).observe(heroVideo);
-      }
+      return null;
     }
-  }
-
-  /* ---------- demo: foto × vídeo ---------- */
-  const compare = $("#compare");
-  const range = $("#compareRange");
-  const demoVideo = $("#demoVideo");
-  let touched = false;
-  if (compare && range) {
-    const set = (v) => compare.style.setProperty("--pos", v + "%");
-    range.addEventListener("input", () => {
-      touched = true; set(range.value); loadDemo();
-      if (demoVideo.paused) { const p = demoVideo.play(); p && p.catch(() => {}); }
-    });
-    const loadDemo = lazyVideo(demoVideo);
-  }
-
-  /* ---------- ferramentas: abas seguem o vídeo ---------- */
-  const tabs = $$(".tool");
-  const toolsVideo = $("#toolsVideo");
-  const panel = $("#toolsPanel");
-  const CH = [0, 4.0, 7.6, 11.2];    // começo de cada aba no motion/ferramentas (já sem a fusão)
-  let current = -1;
-  function setTab(i, focus) {
-    if (i === current) return; current = i;
-    tabs.forEach((t, k) => {
-      const on = k === i;
-      t.classList.toggle("is-on", on);
-      t.setAttribute("aria-selected", on ? "true" : "false");
-      t.tabIndex = on ? 0 : -1;
-    });
-    panel.setAttribute("aria-labelledby", tabs[i].id);
-    if (focus) tabs[i].focus();
-  }
-  if (tabs.length && toolsVideo) {
-    setTab(0);
-    const loadTools = lazyVideo(toolsVideo);
-    tabs.forEach((t, i) => {
-      t.addEventListener("click", () => {
-        setTab(i); loadTools();
-        const seek = () => { try { toolsVideo.currentTime = CH[i] + 0.02; } catch (e) {} };
-        if (toolsVideo.readyState >= 1) seek(); else toolsVideo.addEventListener("loadedmetadata", seek, { once: true });
-        if (toolsVideo.paused && !reduce) { const p = toolsVideo.play(); p && p.catch(() => {}); }
-      });
-      t.addEventListener("keydown", (e) => {
-        const d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : e.key === "ArrowUp" || e.key === "ArrowLeft" ? -1 : 0;
-        if (!d) return; e.preventDefault();
-        const n = (i + d + tabs.length) % tabs.length; setTab(n, true); tabs[n].click();
-      });
-    });
-    const tick = () => {
-      const t = toolsVideo.currentTime || 0;
-      let i = t < 3.8 ? 0 : t < 7.4 ? 1 : 2;
-      if (!toolsVideo.paused) setTab(i);
-      const a = CH[current], b = CH[current + 1];
-      const f = Math.min(1, Math.max(0, (t - a) / (b - a)));
-      const bar = tabs[current] && tabs[current].querySelector(".tool__prog i");
-      if (bar) bar.style.transform = "scaleX(" + f + ")";
-    };
-    toolsVideo.addEventListener("timeupdate", tick);
-    if (!reduce) { const raf = () => { if (!toolsVideo.paused) tick(); requestAnimationFrame(raf); }; requestAnimationFrame(raf); }
-  }
-
-  /* ---------- a faixa que vira anel (seção #loop) ---------- */
-  const curl = (function () {
-    const svg = $("#curlSvg");
-    if (!svg) return null;
-    const el = (id) => document.getElementById(id);
-    const segA = el("cSegA"), segB = el("cSegB"), glowA = el("cGlowA"), glowB = el("cGlowB");
-    const ticks = el("cTicks"), hatch = el("cHatch");
-    const labA = el("cLabelA"), labB = el("cLabelB"), fStart = el("cStart"), fEnd = el("cEnd");
-    const join = el("cJoin"), head = el("cHead"), center = el("cCenter"), tc = el("cTc");
-    const world = el("curlWorld");
-    let VW = 1200, VH = 560, L = 1100, mobile = false;
-    let state = { p: 0, ox: 0, oy: 0, k: 0 };
-
-    function layout() {
-      mobile = window.innerWidth < 700;
-      VW = mobile ? 700 : 1200; VH = mobile ? 640 : 560; L = mobile ? 1000 : 1100;
-      svg.setAttribute("viewBox", "0 0 " + VW + " " + VH);
+    function frame(now) {
+      const dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now;
+      if (!cur.paused) total += dt;
+      tc.textContent = hms(total);
+      ring.style.strokeDashoffset = String(-((now / 5200) % 1));
+      setSteps(cur.currentTime || 0, cur.duration, idx === -1);
+      raf = visible ? requestAnimationFrame(frame) : 0;
     }
-    const ptAt = (k, s) => (k < 1e-7 ? [s, 0] : [Math.sin(k * s) / k, (1 - Math.cos(k * s)) / k]);
-    const tanAt = (k, s) => [Math.cos(k * s), Math.sin(k * s)];
-    function P(s) { const q = ptAt(state.k, s); return [q[0] + state.ox, q[1] + state.oy]; }
-    function poly(a, b, n) {
-      let d = "";
-      for (let i = 0; i <= n; i++) { const s = a + (b - a) * (i / n); const q = P(s); d += (i ? "L" : "M") + q[0].toFixed(1) + " " + q[1].toFixed(1); }
-      return d;
+    function prepare() {
+      const n = HERO_LOOPS[(idx + 1) % HERO_LOOPS.length];
+      if (nxt.dataset.want !== n.video) { nxt.dataset.want = n.video; nxt.src = n.video; nxt.preload = "auto"; nxt.load(); }
     }
-    function draw(p) {
-      p = Math.max(0, Math.min(1, p));
-      state.p = p;
-      const ease = p < 1 ? p * p * (3 - 2 * p) : 1; // suave nas pontas
-      const k = (ease * 2 * Math.PI) / L; state.k = k;
-      // centraliza pelo contorno
-      let minx = 1e9, maxx = -1e9, miny = 1e9, maxy = -1e9;
-      for (let i = 0; i <= 64; i++) { const q = ptAt(k, (L * i) / 64); minx = Math.min(minx, q[0]); maxx = Math.max(maxx, q[0]); miny = Math.min(miny, q[1]); maxy = Math.max(maxy, q[1]); }
-      state.ox = VW / 2 - (minx + maxx) / 2;
-      state.oy = VH / 2 - (miny + maxy) / 2 + (mobile ? 20 : 18);
-      // no meio da curva o desenho fica maior que a caixa: encolhe um pouco pra caber
-      const padX = mobile ? 200 : 130, padY = mobile ? 110 : 90;
-      const sc = Math.min(1, (VW - 20) / (maxx - minx + padX * 2), (VH - 10) / (maxy - miny + padY * 2));
-      world.setAttribute("transform", "translate(" + (VW / 2 * (1 - sc)).toFixed(1) + " " + (VH / 2 * (1 - sc)).toFixed(1) + ") scale(" + sc.toFixed(4) + ")");
-      const cut = (L * 2) / 3, gap = 3;
-      const dA = poly(0, cut - gap, 120), dB = poly(cut + gap, L, 60);
-      segA.setAttribute("d", dA); glowA.setAttribute("d", dA);
-      segB.setAttribute("d", dB); glowB.setAttribute("d", dB);
-      // marcas de quadro no principal, hachura na volta
-      let t = "";
-      for (let s = 14; s < cut - 8; s += 22) {
-        const q = P(s), tg = tanAt(k, s), n = [-tg[1], tg[0]];
-        t += "M" + (q[0] + n[0] * 11).toFixed(1) + " " + (q[1] + n[1] * 11).toFixed(1) + "L" + (q[0] - n[0] * 11).toFixed(1) + " " + (q[1] - n[1] * 11).toFixed(1);
-      }
-      ticks.setAttribute("d", t);
-      let h = "";
-      for (let s = cut + 10; s < L - 4; s += 11) {
-        const q = P(s), tg = tanAt(k, s), n = [-tg[1], tg[0]];
-        h += "M" + (q[0] + n[0] * 13 - tg[0] * 6).toFixed(1) + " " + (q[1] + n[1] * 13 - tg[1] * 6).toFixed(1) +
-             "L" + (q[0] - n[0] * 13 + tg[0] * 6).toFixed(1) + " " + (q[1] - n[1] * 13 + tg[1] * 6).toFixed(1);
-      }
-      hatch.setAttribute("d", h);
-      // rótulos por fora da curva
-      const lab = (g, s, off) => {
-        const q = P(s), tg = tanAt(k, s), ox = tg[1], oy = -tg[0]; // normal pra fora da curva
-        const anchor = ox > 0.4 ? "start" : ox < -0.4 ? "end" : "middle";
-        const dy = oy > 0.4 ? (mobile ? 24 : 18) : oy < -0.4 ? -2 : 7;
-        g.firstElementChild.setAttribute("text-anchor", anchor);
-        g.setAttribute("transform", "translate(" + (q[0] + ox * off).toFixed(1) + " " + (q[1] + oy * off + dy).toFixed(1) + ")");
+    function swap() {
+      if (busy) return; busy = true;
+      const gsap = window.gsap;
+      const n = HERO_LOOPS[(idx + 1) % HERO_LOOPS.length];
+      prepare();
+      const go = () => {
+        nxt.currentTime = 0; play(nxt);
+        intake.style.opacity = 0;
+        setTimeout(() => { intake.src = n.foto; intake.style.opacity = 1; }, 250);
+        const done = () => {
+          cur.classList.remove("is-on"); cur.pause();
+          nxt.classList.remove("is-top"); nxt.classList.add("is-on"); nxt.style.clipPath = "";
+          const t = cur; cur = nxt; nxt = t; idx = (idx + 1) % HERO_LOOPS.length; busy = false;
+          nxt.removeAttribute("poster");
+        };
+        if (!gsap) { done(); return; }
+        nxt.classList.add("is-top");
+        const h = $("#heroScreen").clientHeight;
+        const tl = gsap.timeline({ onComplete: done });
+        tl.set(scan, { y: 0, opacity: 1 })
+          .fromTo(nxt, { clipPath: "inset(0% 0% 100% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "power2.inOut" }, 0)
+          .fromTo(scan, { y: 0 }, { y: h, duration: 1.1, ease: "power2.inOut" }, 0)
+          .to(scan, { opacity: 0, duration: 0.25 }, 0.95);
       };
-      lab(labA, cut / 2, mobile ? 36 : 32); lab(labB, (cut + L) / 2, mobile ? 36 : 32);
-      // os dois quadros (primeiro e último) se encontram na emenda
-      const sep = 46 * (1 - Math.max(0, (p - 0.82) / 0.18));
-      const q0 = P(0), t0 = tanAt(k, 0), qL = P(L), tL = tanAt(k, L);
-      fStart.setAttribute("transform", "translate(" + (q0[0] - t0[0] * sep).toFixed(1) + " " + (q0[1] - t0[1] * sep).toFixed(1) + ")");
-      fEnd.setAttribute("transform", "translate(" + (qL[0] + tL[0] * sep).toFixed(1) + " " + (qL[1] + tL[1] * sep).toFixed(1) + ")");
-      const closed = p >= 0.995;
-      join.setAttribute("transform", "translate(" + q0[0].toFixed(1) + " " + q0[1].toFixed(1) + ")");
-      join.setAttribute("opacity", closed ? "1" : String(Math.max(0, (p - 0.9) / 0.1) * 0.6));
-      const cx = VW / 2 + (state.ox - VW / 2) * sc, cy = VH / 2 + (state.oy + (k > 1e-7 ? 1 / k : 0) - VH / 2) * sc;
-      center.setAttribute("transform", "translate(" + cx.toFixed(1) + " " + cy.toFixed(1) + ")");
-      center.setAttribute("opacity", String(Math.max(0, (p - 0.85) / 0.15)));
-      head.setAttribute("opacity", closed ? "1" : "0");
-      if (!closed) tc.textContent = "0:00";
+      if (nxt.readyState >= 2) go(); else nxt.addEventListener("canplay", go, { once: true });
     }
-    // depois de fechado, um cursor dá a volta e o tempo corre até 2:30
-    let s0 = 0, lastT = 0, running = false, total = 0;
-    const LAP = 1.5;  // segundos por volta na tela
-    function spin(now) {
-      if (!running) return;
-      const dt = lastT ? Math.min(0.05, (now - lastT) / 1000) : 0; lastT = now;
-      if (state.p >= 0.995) {
-        total += dt; const lapF = total / LAP;
-        s0 = (lapF % 1) * L;
-        const q = P(s0); head.setAttribute("cx", q[0].toFixed(1)); head.setAttribute("cy", q[1].toFixed(1));
-        const sec = Math.min(150, (lapF % 10) * 15);
-        tc.textContent = fmt(sec);
+    [A, B].forEach((v) => {
+      v.addEventListener("ended", () => { if (v === cur) swap(); });
+      v.addEventListener("timeupdate", () => { if (v === cur && v.duration && v.currentTime > v.duration - 4) prepare(); });
+    });
+    raf = requestAnimationFrame(frame);
+    watch($("#heroPhone"), (on) => {
+      visible = on;
+      if (on) { if (!busy) play(cur); last = 0; if (!raf) raf = requestAnimationFrame(frame); }
+      else cur.pause();
+    }, 0.05);
+    return true;
+  })();
+
+  /* ---------- comparadores (foto × vídeo, legenda × limpa) ---------- */
+  $$(".compare").forEach((c) => {
+    const r = $(".compare__range", c);
+    c._touched = false;
+    r.addEventListener("input", () => { c._touched = true; c.style.setProperty("--pos", r.value + "%"); c.dispatchEvent(new Event("touch")); });
+  });
+
+  /* ---------- demo: o vídeo do especialista + contador ---------- */
+  const demoVideo = $("#demoVideo"), demoTc = $("#demoTc");
+  if (demoVideo) {
+    let total = 0, last = 0, on = false;
+    const tick = (now) => {
+      const dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now;
+      if (!demoVideo.paused) total += dt;
+      demoTc.textContent = hms(total);
+      if (on) requestAnimationFrame(tick);
+    };
+    watch(demoVideo, (vis) => {
+      on = vis;
+      if (vis) { loadVideo(demoVideo); if (!reduce) play(demoVideo); last = 0; requestAnimationFrame(tick); } else demoVideo.pause();
+    });
+    $("#compare").addEventListener("touch", () => { loadVideo(demoVideo); if (demoVideo.paused) play(demoVideo); });
+  }
+
+  /* ---------- desafio: ache a emenda ---------- */
+  (function () {
+    const v = $("#huntVideo"); if (!v) return;
+    const btn = $("#huntBtn"), msg = $("#huntMsg"), lapsEl = $("#huntLaps"), timeEl = $("#huntTime"), flash = $("#huntFlash");
+    const strip = $("#strip"), ticksEl = $("#stripTicks"), marksEl = $("#stripMarks");
+    const PPS = 26; // pixels por segundo na linha do tempo
+    let total = 0, last = 0, lastT = 0, laps = 0, shownLaps = 0, tries = 0, on = false, nextLapsUpdate = 0;
+    const marks = [], tickPool = [];
+    const answers = [
+      () => "Tem certeza? Olha de novo.",
+      () => "Ele já voltou ao começo " + laps + (laps === 1 ? " vez" : " vezes") + " enquanto você olhava.",
+      () => "É isso que vai rodar atrás da sua narração.",
+    ];
+    const fmtTick = (s) => (s >= 3600 ? hms(s) : Math.floor(s / 60) + ":" + pad(s % 60));
+    function drawStrip() {
+      const w = strip.clientWidth, half = w / 2;
+      const from = Math.max(0, Math.ceil((total - half / PPS) / 5) * 5), to = total + half / PPS + 5;
+      let k = 0;
+      for (let s = from; s <= to; s += 5, k++) {
+        let el = tickPool[k];
+        if (!el) { el = document.createElement("span"); ticksEl.appendChild(el); tickPool[k] = el; }
+        el.style.display = ""; el.style.left = (half + (s - total) * PPS) + "px"; el.textContent = fmtTick(s);
       }
-      requestAnimationFrame(spin);
+      for (; k < tickPool.length; k++) tickPool[k].style.display = "none";
+      for (let i = marks.length - 1; i >= 0; i--) {
+        const x = half + (marks[i].t - total) * PPS;
+        if (x < -20) { marks[i].el.remove(); marks.splice(i, 1); } else marks[i].el.style.left = x + "px";
+      }
     }
-    function play(on) { if (on && !running && !reduce) { running = true; lastT = 0; requestAnimationFrame(spin); } else if (!on) running = false; }
-    layout(); draw(0);
-    window.addEventListener("resize", () => { const was = mobile; layout(); if (was !== mobile || true) draw(state.p); });
-    return { draw, play, setStatic() { draw(1); tc.textContent = "2:30"; const q = P(0); head.setAttribute("cx", q[0]); head.setAttribute("cy", q[1]); } };
+    function frame(now) {
+      const dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now;
+      const t = v.currentTime || 0;
+      if (!v.paused) total += dt;
+      if (t + 1 < lastT) laps++;            // voltou ao começo
+      lastT = t;
+      if (now > nextLapsUpdate) { shownLaps = laps; lapsEl.textContent = shownLaps; nextLapsUpdate = now + 3700; } // atualiza devagar pra não entregar o momento
+      timeEl.textContent = hms(total);
+      drawStrip();
+      if (on) requestAnimationFrame(frame);
+    }
+    btn.addEventListener("click", () => {
+      loadVideo(v); if (v.paused) play(v);
+      const a = answers[tries % answers.length]; tries++;
+      msg.textContent = a();
+      const m = document.createElement("i"); marksEl.appendChild(m); marks.push({ t: total, el: m });
+      if (window.gsap && !reduce) window.gsap.fromTo(flash, { opacity: 1 }, { opacity: 0, duration: 0.8, ease: "power2.out" });
+      drawStrip();
+    });
+    watch(v, (vis) => {
+      on = vis;
+      if (vis) { loadVideo(v); if (!reduce) play(v); last = 0; requestAnimationFrame(frame); } else v.pause();
+    });
+    window.addEventListener("resize", drawStrip);
+  })();
+
+  /* ---------- esteira: cada etapa acende as ferramentas que a alimentam ---------- */
+  (function () {
+    const stages = $$(".stage"), tools = $$("#toolbar li");
+    if (!stages.length) return;
+    let i = 0, hold = false, timer = 0;
+    const light = (k) => {
+      stages.forEach((s, j) => s.classList.toggle("is-on", j === k));
+      const want = stages[k].dataset.tools.split(" ");
+      tools.forEach((t) => t.classList.toggle("is-lit", want.includes(t.dataset.tool)));
+    };
+    stages.forEach((s, k) => {
+      s.addEventListener("mouseenter", () => { hold = true; light(k); });
+      s.addEventListener("focus", () => { hold = true; light(k); });
+      s.addEventListener("mouseleave", () => { hold = false; i = k; });
+      s.addEventListener("blur", () => { hold = false; });
+    });
+    light(0);
+    if (reduce) return;
+    watch($("#belt"), (on) => {
+      clearInterval(timer);
+      if (on) timer = setInterval(() => { if (!hold) { i = (i + 1) % stages.length; light(i); } }, 2200);
+    });
   })();
 
   /* ---------- GSAP ---------- */
   function startGsap() {
     const gsap = window.gsap, ST = window.ScrollTrigger;
-    if (!gsap) { document.documentElement.classList.remove("js"); if (curl) curl.setStatic(); return; }
+    if (!gsap) { document.documentElement.classList.remove("js"); return; }
     if (ST) gsap.registerPlugin(ST);
     const IN = "power3.out";
 
+    // prova visual: o texto entra e as três páginas abrem em leque
+    const fanCards = $$("#fan .art"), pressText = $("#pressText");
+    const PASTE = "Pequenas mudanças na rotina da manhã aparecem no resto do dia. Nesta matéria, reunimos hábitos simples que cabem antes do café.";
+    const narrow = () => window.innerWidth < 600;
+    const fanTo = () => {
+      const k = narrow() ? 0.36 : 1.12;
+      return [{ x: -150 * k, y: 18, rotation: -10 }, { x: 0, y: -14, rotation: 0 }, { x: 150 * k, y: 18, rotation: 10 }];
+    };
+
     if (reduce) {
       gsap.set("[data-intro], [data-intro-stage]", { opacity: 1 });
-      if (curl) curl.setStatic();
+      if (pressText) pressText.textContent = PASTE;
+      fanCards.forEach((c, k) => gsap.set(c, fanTo()[k]));
       $("#rulerHead") && gsap.set("#rulerHead", { left: "100%" });
+      $$("#ratioChips span")[0] && $$("#ratioChips span")[0].classList.add("is-on");
       return;
     }
 
     // abertura: um único momento orquestrado
-    const intro = gsap.timeline({ defaults: { ease: IN } });
-    intro.fromTo(".nav", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.6 }, 0)
+    gsap.timeline({ defaults: { ease: IN } })
+      .fromTo(".nav", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.6 }, 0)
       .fromTo("[data-intro]", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.08 }, 0.1)
       .fromTo("[data-intro-stage]", { opacity: 0, y: 30, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 1.1 }, 0.25);
 
-    if (!ST) { if (curl) curl.setStatic(); return; }
+    if (!ST) return;
 
-    // régua dos números: o cursor anda com a rolagem
-    gsap.fromTo("#rulerHead", { left: "0%" }, { left: "100%", ease: "none",
-      scrollTrigger: { trigger: "#fatos", start: "top 90%", end: "bottom 30%", scrub: 0.6 } });
+    // galeria: as colunas deslizam em velocidades diferentes com a rolagem
+    $$(".wall__col").forEach((col) => {
+      gsap.fromTo(col, { yPercent: 0 }, { yPercent: +col.dataset.speed, ease: "none",
+        scrollTrigger: { trigger: "#wall", start: "top bottom", end: "bottom top", scrub: 0.8 } });
+    });
 
-    // o "pulo" do trecho repetido
+    // o "pulo" dos trechos colados
     const track = $("#jumpTrack");
     if (track) {
       const seams = $$(".jump__seam", track), headEl = $("#jumpHead"), jtc = $("#jumpTc");
-      const st = { x: 0 };
-      let lastHit = -1;
+      const st = { x: 0 }; let lastHit = -1;
       const jt = gsap.timeline({ repeat: -1, paused: true });
       jt.to(st, { x: 1, duration: 6, ease: "none", onUpdate() {
-        const w = track.clientWidth; const x = st.x * w;
+        const x = st.x * track.clientWidth;
         headEl.style.transform = "translateX(" + x + "px)";
-        jtc.textContent = fmt(st.x * 30);
+        jtc.textContent = Math.floor(st.x * 30 / 60) + ":" + pad(st.x * 30 % 60);
         seams.forEach((s, i) => {
-          const c = s.offsetLeft + s.offsetWidth / 2; const hit = Math.abs(x - c) < 10;
+          const hit = Math.abs(x - (s.offsetLeft + s.offsetWidth / 2)) < 10;
           s.classList.toggle("is-hit", hit);
           if (hit && lastHit !== i) { lastHit = i; track.classList.remove("is-shake"); void track.offsetWidth; track.classList.add("is-shake"); }
         });
@@ -329,43 +333,60 @@ const CONFIG = {
       ST.create({ trigger: track, start: "top 90%", end: "bottom 10%", onToggle: (self) => (self.isActive ? jt.play() : jt.pause()) });
     }
 
-    // faixa → anel
-    if (curl) {
-      const mm = gsap.matchMedia();
-      mm.add("(min-width: 900px) and (min-height: 640px)", () => {
-        const t = ST.create({ trigger: "#loopPin", start: "top top", end: "+=120%", pin: true, scrub: 0.6,
-          onUpdate: (self) => curl.draw(Math.min(1, self.progress / 0.82)) });
-        const v = ST.create({ trigger: "#loop", start: "top bottom", end: "bottom top", onToggle: (s) => curl.play(s.isActive) });
-        return () => { t.kill(); v.kill(); };
-      });
-      mm.add("(max-width: 899.98px), (max-height: 639.98px)", () => {
-        const t = ST.create({ trigger: "#curl", start: "top 85%", end: "center 45%", scrub: 0.5,
-          onUpdate: (self) => curl.draw(self.progress) });
-        const v = ST.create({ trigger: "#loop", start: "top bottom", end: "bottom top", onToggle: (s) => curl.play(s.isActive) });
-        return () => { t.kill(); v.kill(); };
-      });
-    }
-
-    // demo: a divisória mostra que dá pra arrastar
-    if (compare) {
-      ST.create({ trigger: compare, start: "top 70%", once: true, onEnter: () => {
-        if (touched) return;
-        const o = { v: 92 };
-        gsap.to(o, { v: 50, duration: 1.4, ease: "power3.inOut", onUpdate: () => { if (!touched) { compare.style.setProperty("--pos", o.v + "%"); range.value = o.v; } } });
+    // comparadores: a divisória mostra que dá pra arrastar
+    $$(".compare").forEach((c) => {
+      const r = $(".compare__range", c);
+      const seq = c.id === "cleanCompare" ? [92, 12, 55] : [92, 50];
+      ST.create({ trigger: c, start: "top 70%", once: true, onEnter: () => {
+        if (c._touched) return;
+        const o = { v: seq[0] }, tl = gsap.timeline();
+        seq.slice(1).forEach((v) => tl.to(o, { v, duration: 1.2, ease: "power3.inOut", onUpdate: () => { if (!c._touched) { c.style.setProperty("--pos", o.v + "%"); r.value = o.v; } } }));
       } });
+    });
+
+    // vídeo próprio: o preço cai
+    if ($("#cost2")) gsap.timeline({ scrollTrigger: { trigger: "#cost2", start: "top 80%", once: true }, defaults: { ease: IN } })
+      .fromTo(".cost2__old", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.5 })
+      .fromTo(".cost2__new", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.1")
+      .fromTo(".cost2__chip", { opacity: 0 }, { opacity: 1, duration: 0.5 }, "-=0.3");
+
+    // prova visual: começa aberto; depois fecha, o texto é colado de novo e as páginas abrem outra vez
+    if (fanCards.length) {
+      const pos = fanTo();
+      fanCards.forEach((c, k) => gsap.set(c, pos[k]));
+      pressText.textContent = PASTE;
+      const typed = { n: PASTE.length };
+      const tl = gsap.timeline({ repeat: -1, paused: true });
+      tl.to({}, { duration: 2.2 })
+        .to(fanCards, { x: 0, y: 24, rotation: 0, opacity: 0, scale: 0.94, duration: 0.5, ease: "power2.in", stagger: 0.05 })
+        .set(typed, { n: 0 })
+        .to(typed, { n: PASTE.length, duration: 2.4, ease: "none", onUpdate: () => { pressText.textContent = PASTE.slice(0, Math.round(typed.n)); } })
+        .to(".press__btn", { scale: 0.94, duration: 0.12, yoyo: true, repeat: 1 }, "+=0.15")
+        .to(fanCards, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: IN, stagger: 0.1 })
+        .to(fanCards, { x: (k) => fanTo()[k].x, y: (k) => fanTo()[k].y, rotation: (k) => fanTo()[k].rotation, duration: 0.9, ease: "power3.inOut" }, "-=0.05")
+        .to({}, { duration: 2.5 });
+      ST.create({ trigger: "#press", start: "top 85%", end: "bottom 10%", onToggle: (s) => (s.isActive ? tl.play() : tl.pause()) });
     }
 
-    // vídeo próprio: as barras entram e a volta fecha o arco
-    const pv = $("#proprioViz");
-    if (pv) {
-      const arc = $("#pvArc");
-      const tl = gsap.timeline({ scrollTrigger: { trigger: pv, start: "top 80%", once: true }, defaults: { ease: IN } });
-      tl.fromTo(".pv__bar--mine", { scaleX: 0 }, { scaleX: 1, duration: 0.6 })
-        .fromTo(".pv__bar--back", { scaleX: 0 }, { scaleX: 1, duration: 0.45 }, "-=0.15")
-        .fromTo(arc, { opacity: 0 }, { opacity: 1, duration: 0.4 }, "-=0.1")
-        .fromTo(".pv__old", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35 }, "-=0.25")
-        .fromTo(".pv__new", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4 }, "-=0.15");
+    // imagens: o quadro troca de formato
+    const frameEl = $("#ratioFrame"), box = $("#ratio"), chips = $$("#ratioChips span");
+    if (frameEl) {
+      const R = [9 / 16, 4 / 5, 16 / 9];
+      const size = (r) => { const W = box.clientWidth * 0.86, H = box.clientHeight * 0.86; let h = H, w = h * r; if (w > W) { w = W; h = w / r; } return { width: w, height: h }; };
+      frameEl.style.aspectRatio = "auto";
+      gsap.set(frameEl, size(R[0])); chips[0].classList.add("is-on");
+      const tl = gsap.timeline({ repeat: -1, paused: true });
+      [1, 2, 0].forEach((k) => {
+        tl.to(frameEl, { width: () => size(R[k]).width, height: () => size(R[k]).height, duration: 0.9, ease: "power3.inOut",
+          onStart: () => chips.forEach((c, j) => c.classList.toggle("is-on", j === k)) }, "+=1.4")
+          .fromTo(".ratio__sweep", { xPercent: -100 }, { xPercent: 100, duration: 0.8, ease: "power2.inOut" }, "<0.3");
+      });
+      ST.create({ trigger: box, start: "top 85%", end: "bottom 10%", invalidateOnRefresh: true, onToggle: (s) => (s.isActive ? tl.play() : tl.pause()), onRefresh: () => tl.invalidate() });
     }
+
+    // números: o cursor da régua anda com a rolagem
+    gsap.fromTo("#rulerHead", { left: "0%" }, { left: "100%", ease: "none",
+      scrollTrigger: { trigger: "#fatos", start: "top 90%", end: "bottom 30%", scrub: 0.6 } });
 
     window.addEventListener("load", () => ST.refresh());
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ST.refresh());
