@@ -1,0 +1,21 @@
+# dependências e caches
+node_modules/
+.npm/
+.cache/
+
+# revisão local (screenshots do teste)
+_shots/
+
+# HyperFrames: renders brutos, snapshots e entradas de vídeo (os arquivos finais do site ficam em assets/video)
+motion/*/renders/
+motion/*/snapshots/
+motion/*/.hyperframes/
+motion/*/assets/*.mp4
+motion/*/CLAUDE.md
+motion/*/AGENTS.md
+
+# sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
