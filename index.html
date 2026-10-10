@@ -478,21 +478,31 @@
 
     <!-- [cta-final] -->
     <section class="final" id="cta-final" aria-labelledby="final-titulo">
-      <div class="final__strip" aria-hidden="true">
-        <img src="assets/exemplos/loops/fazenda.jpg" width="480" height="854" alt="" loading="lazy">
-        <img src="assets/exemplos/loops/cirurgiao.jpg" width="480" height="864" alt="" loading="lazy">
-        <img src="assets/exemplos/loops/mae-bebe.jpg" width="480" height="854" alt="" loading="lazy">
-        <img src="assets/exemplos/medico-foto.webp" width="720" height="1280" alt="" loading="lazy">
-        <img src="assets/exemplos/loops/ruiva.jpg" width="480" height="854" alt="" loading="lazy">
-        <img src="assets/exemplos/loops/homem-oculos.jpg" width="480" height="864" alt="" loading="lazy">
-        <img src="assets/exemplos/loops/loira.jpg" width="480" height="854" alt="" loading="lazy">
+      <div class="final__bg" aria-hidden="true">
+        <div class="final__wall">
+          <img src="assets/exemplos/loops/ruiva.jpg" width="480" height="854" alt="" loading="lazy" decoding="async">
+          <img src="assets/exemplos/loops/cirurgiao.jpg" width="480" height="864" alt="" loading="lazy" decoding="async">
+          <img src="assets/exemplos/loops/homem-oculos.jpg" width="480" height="864" alt="" loading="lazy" decoding="async">
+          <img src="assets/exemplos/loops/mae-bebe.jpg" width="480" height="854" alt="" loading="lazy" decoding="async">
+          <img src="assets/exemplos/loops/fazenda.jpg" width="480" height="854" alt="" loading="lazy" decoding="async">
+          <img src="assets/exemplos/loops/loira.jpg" width="480" height="854" alt="" loading="lazy" decoding="async">
+          <img src="assets/exemplos/loops/homem-camiseta.jpg" width="480" height="850" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="final__glow"></div>
       </div>
       <div class="wrap final__in reveal">
-        <h2 id="final-titulo" class="h2">O próximo criativo <br>começa com uma foto.</h2>
+        <img class="final__icon" src="assets/img/icone.png" width="96" height="96" alt="" loading="lazy">
+        <h2 id="final-titulo" class="final__title">O próximo criativo começa com uma foto.</h2>
+        <p class="lead">O rosto da VSL, a presell e o produto em cena. Tudo no mesmo app.</p>
         <div class="final__ctas">
           <a class="btn btn--primary btn--lg" href="#planos" data-cfg-href="linkCheckout">Quero o Individual</a>
           <a class="btn btn--outline btn--lg" href="#planos" data-cfg-href="linkContato">Sou agência ou operação</a>
         </div>
+        <ul class="checks">
+          <li><svg class="ico"><use href="#i-check"/></svg><span>Garantia de <span class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</span> dias</span></li>
+          <li><svg class="ico"><use href="#i-check"/></svg><span>Ativação na hora</span></li>
+          <li><svg class="ico"><use href="#i-check"/></svg><span>Custo sempre visível</span></li>
+        </ul>
       </div>
     </section>
   </main>
