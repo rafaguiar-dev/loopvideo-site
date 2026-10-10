@@ -21,9 +21,9 @@ Tudo fica no objeto `CONFIG`, no topo de `assets/js/main.js`:
 
 | campo | onde aparece |
 | --- | --- |
-| `plano` | ao lado do nome do plano Individual (ex.: "mensal" ou "vitalício") |
-| `preco`, `precoAncora`, `parcelas` | card Individual |
-| `qtdPcs` | card Individual |
+| `plano` | ao lado do nome do plano Individual (hoje "Plano anual") |
+| `preco`, `periodo`, `precoAncora`, `parcelas` | card Individual. Valor vazio (`""`) esconde o item (hoje sem preço riscado) |
+| `qtdPcs` | card Individual e FAQ (hoje 2 PCs, sem uso ao mesmo tempo) |
 | `diasGarantia` | card Individual e FAQ |
 | `linkCheckout` | botões "Quero o Individual" (planos e chamada final); os botões "Ver planos" levam até os planos |
 | `linkContato` | "Falar com a gente" do Empresarial, "Sou agência ou operação" e "Não achou?" da FAQ |
@@ -46,10 +46,13 @@ O texto do exemplo de Prova visual (nos 4 idiomas) fica em `ARTIGO`, logo abaixo
   veículos de verdade e não podem ir pra um site público.
 - A janela do app em "Como funciona" é uma ilustração em HTML fiel à interface, simplificada de propósito (sem custos,
   modelos nem detalhes internos).
+- `assets/img/marcas/`: logos de Magnific, Freepik, Higgsfield e Dreamface (seção "Por que ele existe"), tirados dos
+  sites oficiais em 2026-10-10 (Freepik: ícone do Simple Icons, porque freepik.com agora redireciona pra Magnific). Uso
+  só nominativo ("funciona com"), com a nota de que o LoopVideo não tem vínculo com elas.
 
 ## Estrutura
 
-- `index.html`: a página. Seções: hero, público, exemplos, como funciona, onde ele trabalha, ferramentas (Mockup,
+- `index.html`: a página. Seções: hero, público, exemplos, por que ele existe (automação, tempo, contas de IA e Dreamface), como funciona, onde ele trabalha, ferramentas (Mockup,
   Prova visual, Imagens), planos, FAQ, chamada final e rodapé.
 - `assets/css/site.css`: identidade "Noite infinita" (cores e curvas do app).
 - `assets/js/main.js`: `CONFIG`, vídeos sob demanda (tocam só quando visíveis; com "reduzir movimento" nada toca
