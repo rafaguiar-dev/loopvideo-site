@@ -46,8 +46,8 @@ O texto do exemplo de Prova visual (nos 4 idiomas) fica em `ARTIGO`, logo abaixo
   veículos de verdade e não podem ir pra um site público.
 - A janela do app em "Como funciona" é uma ilustração em HTML fiel à interface, simplificada de propósito (sem custos,
   modelos nem detalhes internos).
-- `assets/img/marcas/`: logos de Magnific, Freepik, Higgsfield e Dreamface (seção "Por que ele existe"), tirados dos
-  sites oficiais em 2026-10-10 (Freepik: ícone do Simple Icons, porque freepik.com agora redireciona pra Magnific). Uso
+- `assets/img/marcas/`: logos de Magnific (aparece como "Magnific, antiga Freepik": freepik.com hoje redireciona pra
+  Magnific), Higgsfield e Dreamface (seção "Por que ele existe"), tirados dos sites oficiais em 2026-10-10. Uso
   só nominativo ("funciona com"), com a nota de que o LoopVideo não tem vínculo com elas.
 
 ## Estrutura
