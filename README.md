@@ -3,7 +3,7 @@
 Página de vendas do LoopVideo (app para Windows que transforma uma foto num vídeo da pessoa falando, em loop de 2:30).
 Site estático: `index.html` + `assets/` (CSS, JS, fontes, imagens e vídeos). Sem build.
 
-**Status: ainda não publicado.**
+**Status: prévia online em https://rafaguiar-dev.github.io/loopvideo-site/ (GitHub Pages, `noindex`, com placeholders de oferta). Ainda não é o site oficial.**
 
 ## Rodar local
 
