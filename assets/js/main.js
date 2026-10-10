@@ -3,12 +3,13 @@
    amarelo na página até ser preenchido. Ex.: preco: "R$ 297", linkCheckout: "https://pay.exemplo.com/..."
    ===================================================================================================== */
 const CONFIG = {
-  plano: "[PLANO: mensal ou vitalício]",          // aparece ao lado de "Individual"
-  preco: "[PREÇO]",                               // ex.: "R$ 297"
-  precoAncora: "[PREÇO_ANCORA]",                  // ex.: "R$ 497" (preço riscado)
-  parcelas: "[PARCELAS]",                         // ex.: "12x de R$ 29,70"
-  qtdPcs: "[QTD_PCS]",                            // ex.: "1"
-  diasGarantia: "[DIAS_GARANTIA]",                // ex.: "7"
+  plano: "Plano anual",                           // aparece ao lado de "Individual"
+  preco: "R$ 497,90",                             // ex.: "R$ 297"
+  periodo: "/ano",                                // aparece colado no preço
+  precoAncora: "",                                // ex.: "R$ 697" (preço riscado). Vazio = não aparece
+  parcelas: "[PARCELAS]",                         // ex.: "12x de R$ 51,46". Vazio = a linha não aparece
+  qtdPcs: "2",                                    // PCs por licença (sem uso ao mesmo tempo)
+  diasGarantia: "7",                              // ex.: "7"
   linkCheckout: "[LINK_CHECKOUT]",                // checkout do plano Individual
   linkContato: "[LINK_CONTATO]",                  // contato do plano Empresarial (WhatsApp, formulário ou mailto:)
   plataformaPagamento: "[PLATAFORMA_PAGAMENTO]",  // ex.: "Hotmart"
@@ -40,6 +41,7 @@ const ARTIGO = {
   /* ---------- CONFIG → página ---------- */
   $$("[data-cfg]").forEach((el) => {
     const v = CONFIG[el.dataset.cfg];
+    if (v === "") { (el.closest("[data-cfg-wrap]") || el).remove(); return; }
     if (isSet(v)) { el.textContent = v; el.classList.remove("ph"); }
   });
   $$("[data-cfg-href]").forEach((a) => {
