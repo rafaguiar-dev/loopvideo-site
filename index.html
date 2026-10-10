@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>LoopVideo · Sua foto falando a VSL inteira</title>
-  <meta name="description" content="App para Windows que transforma uma foto no apresentador da sua VSL, falando sem emenda à vista. Mais presell, mockup e criativos no mesmo app.">
+  <title>LoopVideo · Uma foto vira o apresentador da sua VSL</title>
+  <meta name="description" content="App para Windows que transforma uma foto no apresentador da sua VSL, em loop sem emenda à vista. No mesmo app: presell, mockup do produto e imagens pro criativo.">
   <meta name="theme-color" content="#0A0C22">
   <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex, nofollow"><!-- prévia: tirar quando for o site oficial -->
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="LoopVideo">
-  <meta property="og:title" content="LoopVideo · O rosto da sua VSL não acaba">
-  <meta property="og:description" content="Uma foto vira o apresentador da VSL, sem emenda à vista. E no mesmo app: presell em qualquer idioma, produto em cena e criativo no formato certo.">
+  <meta property="og:title" content="LoopVideo · Uma foto vira o apresentador da sua VSL">
+  <meta property="og:description" content="Solte uma imagem e receba a pessoa falando em vídeo, em loop sem emenda à vista. Mais presell, mockup e imagens no mesmo app.">
   <meta property="og:image" content="https://rafaguiar-dev.github.io/loopvideo-site/assets/img/og.jpg">
-  <meta property="og:url" content="https://rafaguiar-dev.github.io/loopvideo-site/">
-  <meta name="robots" content="noindex, nofollow"><!-- prévia: tirar quando for o site oficial -->
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="LoopVideo: uma foto vira o apresentador da sua VSL">
+  <meta property="og:url" content="https://rafaguiar-dev.github.io/loopvideo-site/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="LoopVideo · O rosto da sua VSL não acaba">
-  <meta name="twitter:description" content="Uma foto vira o apresentador da VSL, sem emenda à vista. E no mesmo app: presell em qualquer idioma, produto em cena e criativo no formato certo.">
+  <meta name="twitter:title" content="LoopVideo · Uma foto vira o apresentador da sua VSL">
+  <meta name="twitter:description" content="Solte uma imagem e receba a pessoa falando em vídeo, em loop sem emenda à vista. Mais presell, mockup e imagens no mesmo app.">
   <meta name="twitter:image" content="https://rafaguiar-dev.github.io/loopvideo-site/assets/img/og.jpg">
 
   <link rel="icon" href="favicon.ico" sizes="any">
@@ -29,17 +29,8 @@
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
   <link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/video/hero-poster.webp" as="image" type="image/webp" fetchpriority="high">
+  <link rel="preload" href="assets/exemplos/medico-foto.webp" as="image" type="image/webp" fetchpriority="high">
   <link rel="stylesheet" href="assets/css/site.css">
-
-  <script>
-    document.documentElement.classList.add("js");
-    // se o GSAP não carregar, nada fica escondido
-    setTimeout(function () { if (!window.gsap) document.documentElement.classList.remove("js"); }, 3000);
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
 
   <script type="application/ld+json">
@@ -49,19 +40,20 @@
     "name": "LoopVideo",
     "operatingSystem": "Windows 10, Windows 11",
     "applicationCategory": "MultimediaApplication",
-    "description": "App para Windows que transforma uma foto no apresentador da sua VSL, falando sem emenda à vista. Mais presell, mockup e criativos no mesmo app.",
+    "description": "App para Windows que transforma uma foto no apresentador da sua VSL, em loop sem emenda à vista. No mesmo app: presell, mockup do produto e imagens pro criativo.",
     "inLanguage": "pt-BR"
   }
   </script>
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-    <defs>
-      <linearGradient id="g-acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3B8CF5"/><stop offset="1" stop-color="#B43CF0"/></linearGradient>
-    </defs>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
-    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5.5v13M16 5.5v13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4.5M7.5 9L12 4.5 16.5 9"/><path d="M4.5 14.5v3a2 2 0 002 2h11a2 2 0 002-2v-3"/></g></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></g></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.5 7a2 2 0 012-2h4l2 2.5h7a2 2 0 012 2V17a2 2 0 01-2 2h-13a2 2 0 01-2-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
     <symbol id="i-image" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.8"/><path d="M20.5 15.5l-5-5-9 9"/></g></symbol>
     <symbol id="i-news" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 4.5h12a2 2 0 012 2v11a2 2 0 01-2 2h-13a2 2 0 01-2-2v-8h3"/><path d="M6.5 4.5v13.5"/><path d="M10 8.5h7M10 12h7M10 15.5h4"/></g></symbol>
     <symbol id="i-box" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></g></symbol>
@@ -69,25 +61,19 @@
     <symbol id="i-queue" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="4" width="17" height="4.5" rx="1.5"/><rect x="3.5" y="10.5" width="17" height="4.5" rx="1.5" opacity=".7"/><rect x="3.5" y="17" width="11" height="3.5" rx="1.5" opacity=".45"/></g></symbol>
     <symbol id="i-resume" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4.5v4h4"/><path d="M10.5 9.5v5l4-2.5z"/></g></symbol>
     <symbol id="i-coins" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="9.5" cy="8" rx="5.5" ry="3"/><path d="M4 8v4c0 1.7 2.5 3 5.5 3s5.5-1.3 5.5-3V8"/><path d="M9 15.9V16c0 1.7 2.5 3 5.5 3s5.5-1.3 5.5-3v-4c0-1.5-1.9-2.7-4.5-3"/></g></symbol>
-    <symbol id="i-tray" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="15" width="18" height="5" rx="1.5"/><path d="M12 4v8M8.5 8.5L12 12l3.5-3.5"/><circle cx="17.5" cy="17.5" r=".6" fill="currentColor"/></g></symbol>
     <symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16.5V11a6 6 0 0112 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 004 0"/></g></symbol>
-    <symbol id="i-update" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12a7.5 7.5 0 01-13 5.1M4.5 12a7.5 7.5 0 0113-5.1"/><path d="M17.5 3.5v3.6h-3.6M6.5 20.5v-3.6h3.6"/></g></symbol>
-    <symbol id="i-cut" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6.5" cy="17" r="2.5"/><circle cx="17.5" cy="17" r="2.5"/><path d="M8.3 15.2L18 4M15.7 15.2L6 4"/></g></symbol>
-    <symbol id="i-target" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></g></symbol>
-    <symbol id="i-layers" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.5l9 4.5-9 4.5-9-4.5z"/><path d="M3 12l9 4.5 9-4.5M3 16l9 4.5 9-4.5"/></g></symbol>
-    <symbol id="i-pen" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4.5L15.5 5a2.1 2.1 0 013 3L8 18.5z"/><path d="M13.5 7l3 3"/></g></symbol>
-    <symbol id="i-chain" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></g></symbol>
     <symbol id="i-windows" viewBox="0 0 24 24"><path d="M3.5 5.6l7-1v6.9h-7zM11.8 4.4l8.7-1.2v8.3h-8.7zM3.5 12.5h7v6.9l-7-1zM11.8 12.5h8.7v8.3l-8.7-1.2z" fill="currentColor"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></g></symbol>
-    <symbol id="i-up" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18.5 9.5a7 7 0 10.2 6"/><path d="M19 4.5v5h-5"/></g></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 2.5v5.5c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6z"/><path d="M8.8 12l2.2 2.2 4.2-4.4"/></g></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></g></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="i-eraser" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 19.5L3.8 14.8a1.5 1.5 0 010-2.1l8.9-8.9a1.5 1.5 0 012.1 0l5.3 5.3a1.5 1.5 0 010 2.1l-8.4 8.3z"/><path d="M8.5 19.5h11M9 9.5l6 6"/></g></symbol>
     <symbol id="i-split" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M12 4.5v15"/></g></symbol>
     <symbol id="i-sparkle" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.5l1.9 5.2 5.1 1.8-5.1 1.8L12 17.5l-1.9-5.2L5 10.5l5.1-1.8z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></g></symbol>
     <symbol id="i-crop" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3v13.5H21"/><path d="M3 6.5h13.5V21"/></g></symbol>
     <symbol id="i-chat" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4.5 5.5h15a1.5 1.5 0 011.5 1.5v9a1.5 1.5 0 01-1.5 1.5H10l-4.5 3.5V17.5h-1A1.5 1.5 0 013 16V7a1.5 1.5 0 011.5-1.5z"/></g></symbol>
-    <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="8.5" r="3.5"/><path d="M2.5 19.5c.8-3.3 3.4-5 6.5-5s5.7 1.7 6.5 5"/><path d="M15.5 5.2a3.5 3.5 0 010 6.6M17.5 14.8c2 .6 3.4 2.2 4 4.7"/></g></symbol>
-    <symbol id="i-aim" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="7.5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><path d="M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4"/></g></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0112 7.6 4.3 4.3 0 0119.5 10c0 5.4-7.5 10-7.5 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
     <symbol id="i-loop" viewBox="0 0 36 18"><path d="M18 9c-3-4-5.5-6-8.5-6a6 6 0 000 12c3 0 5.5-2 8.5-6s5.5-6 8.5-6a6 6 0 010 12c-3 0-5.5-2-8.5-6z" fill="none" stroke="currentColor" stroke-width="2.4"/></symbol>
   </svg>
 
@@ -100,14 +86,15 @@
         <img src="assets/img/icone-64.webp" width="32" height="32" alt="">
         <span>LoopVideo</span>
       </a>
-      <nav class="nav__links" aria-label="Seções">
-        <a href="#resultado">Ache a emenda</a>
-        <a href="#galeria">Exemplos</a>
-        <a href="#esteira">Ferramentas</a>
-        <a href="#oferta">Preço</a>
+      <nav class="nav__links" id="navLinks" aria-label="Seções">
+        <a href="#exemplos">Exemplos</a>
+        <a href="#como">Como funciona</a>
+        <a href="#ferramentas">Ferramentas</a>
+        <a href="#planos">Planos</a>
         <a href="#faq">Dúvidas</a>
       </nav>
-      <a class="btn btn--nav" href="#oferta" data-cta="nav">Quero o LoopVideo</a>
+      <a class="btn btn--nav" href="#planos">Ver planos</a>
+      <button class="nav__menu" id="navMenu" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menu"><svg class="ico"><use href="#i-menu"/></svg></button>
     </div>
   </header>
 
@@ -115,659 +102,409 @@
 
     <!-- [hero] -->
     <section class="hero" id="topo" aria-labelledby="hero-titulo">
-      <div class="hero__bg" aria-hidden="true">
-        <div class="hero__glow"></div>
-        <div class="floor"><div class="floor__grid"></div></div>
-      </div>
-
+      <div class="hero__glow" aria-hidden="true"></div>
       <div class="wrap hero__in">
         <div class="hero__copy">
-          <p class="pill" data-intro><svg class="ico"><use href="#i-windows"/></svg>App para Windows · feito pra quem vive de VSL e criativo</p>
-          <h1 id="hero-titulo" class="hero__title" data-intro>Uma foto vira o rosto da sua VSL. E ele não para de falar.</h1>
-          <p class="hero__sub" data-intro>Solte a imagem, aprove o take e receba o apresentador falando na duração que a sua VSL pede, sem emenda à vista. No mesmo app: presell, produto em cena e criativo no formato certo.</p>
-          <div class="hero__ctas" data-intro>
-            <a class="btn btn--primary btn--lg" href="#oferta" data-cta="hero">Quero o LoopVideo</a>
-            <a class="btn btn--ghost btn--lg" href="#resultado"><svg class="ico"><use href="#i-aim"/></svg>Tentar achar a emenda</a>
+          <p class="pill reveal"><svg class="ico"><use href="#i-windows"/></svg>App para Windows · feito pra VSL e Direct Response</p>
+          <h1 id="hero-titulo" class="hero__title reveal">Uma foto vira o <span class="grad">apresentador</span> da sua VSL.</h1>
+          <p class="hero__sub reveal">Solte a imagem e receba a pessoa falando em vídeo, em loop sem emenda à vista, pelo tempo que a VSL pedir. Sai sem áudio, pronto pra rodar por baixo da sua narração.</p>
+          <div class="hero__ctas reveal">
+            <a class="btn btn--primary btn--lg" href="#planos">Ver planos</a>
+            <a class="btn btn--ghost btn--lg" href="#exemplos"><svg class="ico"><use href="#i-play"/></svg>Ver exemplos</a>
           </div>
-          <ul class="checks" data-intro>
-            <li><svg class="ico"><use href="#i-check"/></svg><span>Você aprova antes de gastar</span></li>
-            <li><svg class="ico"><use href="#i-check"/></svg><span>Custo na tela antes do clique</span></li>
-            <li><svg class="ico"><use href="#i-check"/></svg><span>Roda na sua conta Magnific</span></li>
+          <ul class="hero__facts reveal">
+            <li><svg class="ico"><use href="#i-check"/></svg>Você aprova antes do vídeo final</li>
+            <li><svg class="ico"><use href="#i-check"/></svg>Presell, mockup e imagens no mesmo app</li>
           </ul>
-          <p class="req" data-intro>Windows 10 ou 11 (64 bits) · internet · conta Magnific com créditos</p>
         </div>
 
-        <figure class="hero__stage" data-intro-stage aria-label="Exemplos reais: a foto que entrou e o vídeo da pessoa falando">
-          <div class="phone" id="heroPhone">
-            <div class="phone__screen" id="heroScreen">
-              <video class="phone__video is-on" id="heroVideoA" autoplay muted playsinline preload="auto"
-                     poster="assets/video/hero-poster.webp" width="720" height="1280" aria-hidden="true">
-                <source src="assets/video/hero.webm" type="video/webm">
-                <source src="assets/video/hero.mp4" type="video/mp4">
-              </video>
-              <video class="phone__video" id="heroVideoB" muted playsinline preload="none" width="480" height="854" aria-hidden="true"></video>
-              <span class="phone__scan" id="heroScan" aria-hidden="true"></span>
-              <span class="tc" aria-hidden="true"><span class="tc__dot"></span><span class="tc__k">falando há</span><span id="heroTc">00:00:00</span></span>
-            </div>
-            <svg class="phone__ring" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              <rect class="ring-base" x="1" y="1" width="98" height="98" rx="9" ry="5.2" pathLength="1"/>
-              <rect class="ring-prog" id="heroRing" x="1" y="1" width="98" height="98" rx="9" ry="5.2" pathLength="1"/>
-            </svg>
-            <div class="intake" aria-hidden="true">
-              <img id="heroIntake" src="assets/exemplos/medico-foto.webp" width="720" height="1280" alt="">
-              <span>a foto</span>
-            </div>
+        <figure class="hero__stage" aria-label="Exemplo real: a foto que entrou e o vídeo que saiu do LoopVideo">
+          <div class="stage" id="heroStage">
+            <video class="stage__video" id="heroVideo" muted loop playsinline preload="auto" width="720" height="1280"
+                   poster="assets/exemplos/medico-foto.webp" aria-label="Vídeo gerado pelo LoopVideo a partir da foto">
+              <source src="assets/exemplos/medico-loop.webm" type="video/webm">
+              <source src="assets/exemplos/medico-loop.mp4" type="video/mp4">
+            </video>
+            <img class="stage__photo" id="heroPhoto" src="assets/exemplos/medico-foto.webp" width="720" height="1280" alt="">
+            <span class="stage__sweep" aria-hidden="true"></span>
+            <span class="stage__tag" id="heroTag"><i></i><span id="heroTagTxt">foto</span></span>
+            <button class="vbtn" type="button" data-toggle="heroVideo" aria-label="Pausar vídeo"><svg class="ico"><use href="#i-pause"/></svg></button>
           </div>
-          <ol class="steps" id="heroSteps">
-            <li data-step="1"><span class="steps__bar"><i></i></span><span class="steps__n">1</span>Uma foto</li>
-            <li data-step="2"><span class="steps__bar"><i></i></span><span class="steps__n">2</span>Um apresentador</li>
-            <li data-step="3"><span class="steps__bar"><i></i></span><span class="steps__n">3</span>Sem fim à vista</li>
-          </ol>
+          <div class="polaroid" aria-hidden="true">
+            <img src="assets/exemplos/medico-foto.webp" width="720" height="1280" alt="">
+            <span>a foto que entrou</span>
+          </div>
+          <figcaption class="stage__cap">Exemplo real gerado no LoopVideo, sem edição depois. Personagem criado por IA.</figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- [ticker] -->
-    <section class="ticker" id="ticker" aria-label="Pra que serve">
-      <div class="ticker__track">
-        <ul class="ticker__row">
-          <li>Fundo de VSL</li><li>Rosto de especialista</li><li>Criativo estilo UGC</li><li>Presell em minutos</li>
-          <li>Advertorial em qualquer idioma</li><li>Pote em cena, sem estúdio</li><li>B-roll de 5 s</li><li>9:16 · 4:5 · 16:9</li>
-          <li>Sem legenda queimada</li><li>Você aprova antes de gastar</li><li>Custo antes do clique</li><li>Fila de criativos</li>
-          <li>Retoma de onde parou</li>
+    <!-- [publico] -->
+    <section class="band" aria-label="Pra quem é">
+      <div class="wrap band__in">
+        <p>Feito pra quem vive de criativo</p>
+        <ul>
+          <li>Editor de VSL</li><li>Gestor de tráfego</li><li>Copywriter</li><li>Produtor</li><li>Agência de DR</li>
         </ul>
       </div>
     </section>
 
-    <!-- [resultado] -->
-    <section class="sec resultado" id="resultado" aria-labelledby="resultado-titulo">
+    <!-- [exemplos] -->
+    <section class="sec" id="exemplos" aria-labelledby="exemplos-titulo">
       <div class="wrap">
-        <div class="hunt">
-          <div class="hunt__stage">
-            <div class="hunt__video" id="huntFrame">
-              <video id="huntVideo" muted loop playsinline preload="none" poster="assets/exemplos/medico-foto.webp" width="720" height="1280"
-                     aria-label="Vídeo real em loop: um especialista de terno falando">
-                <source data-src="assets/exemplos/medico-loop.webm" type="video/webm">
-                <source data-src="assets/exemplos/medico-loop.mp4" type="video/mp4">
-              </video>
-              <span class="hunt__flash" id="huntFlash" aria-hidden="true"></span>
-            </div>
+        <div class="head head--split reveal">
+          <div>
+            <p class="eyebrow">Exemplos</p>
+            <h2 id="exemplos-titulo" class="h2">Todos começaram <br>como uma foto.</h2>
           </div>
-          <div class="hunt__side">
-            <p class="eyebrow">Desafio</p>
-            <h2 id="resultado-titulo" class="h2">Ache a emenda.</h2>
-            <p class="hunt__how">Este vídeo está em loop agora. Toque quando ele voltar ao começo.</p>
-            <button class="btn btn--primary btn--lg hunt__btn" id="huntBtn" type="button"><svg class="ico"><use href="#i-aim"/></svg>Achei</button>
-            <p class="hunt__msg" id="huntMsg" aria-live="polite"></p>
-            <p class="hunt__count mono" aria-live="off">voltas: <b id="huntLaps">0</b> · falando há <b id="huntTime">00:00:00</b></p>
-            <p class="note">Vídeo real gerado pelo LoopVideo, sem edição depois.</p>
-          </div>
-        </div>
-        <div class="strip" id="strip" aria-hidden="true">
-          <div class="strip__ticks" id="stripTicks"></div>
-          <div class="strip__marks" id="stripMarks"></div>
-          <span class="strip__head"></span>
-        </div>
-      </div>
-    </section>
-
-    <!-- [galeria] -->
-    <section class="sec galeria" id="galeria" aria-labelledby="galeria-titulo">
-      <div class="wrap sec__head sec__head--center">
-        <p class="eyebrow">Rodando agora</p>
-        <h2 id="galeria-titulo" class="h2">Qualquer rosto que a sua oferta pedir.</h2>
-        <p class="lead">Dez vídeos reais saídos do app, em loop. Todos personagens de IA, todos sem áudio: o fundo da sua narração.</p>
-      </div>
-      <div class="wall" id="wall">
-        <!-- LOOPS DA GALERIA (assets/exemplos/loops): cada arquivo já é um loop sem emenda -->
-        <div class="wall__col" data-speed="-10">
-          <figure class="tile"><video muted loop playsinline preload="none" poster="assets/exemplos/loops/ruiva.jpg" width="480" height="854" data-src="assets/exemplos/loops/ruiva.mp4" aria-hidden="true"></video><figcaption>Casual</figcaption></figure>
-          <figure class="tile"><video muted loop playsinline preload="none" poster="assets/exemplos/loops/cientista.jpg" width="480" height="596" data-src="assets/exemplos/loops/cientista.mp4" aria-hidden="true"></video><figcaption>Laboratório</figcaption></figure>
-          <figure class="tile"><video muted loop playsinline preload="none" poster="assets/exemplos/loops/homem-camiseta.jpg" width="480" height="850" data-src="assets/exemplos/loops/homem-camiseta.mp4" aria-hidden="true"></video><figcaption>UGC</figcaption></figure>
-        </div>
-        <div class="wall__col" data-speed="8">
-          <figure class="tile"><video muted loop playsinline preload="none" poster="assets/exemplos/loops/cirurgiao.jpg" width="480" height="864" data-src="assets/exemplos/loops/cirurgiao.mp4" aria-hidden="true"></video><figcaption>Bloco cirúrgico</figcaption></figure>
-          <figure class="tile"><video muted loop playsinline preload="none" poster="assets/exemplos/loops/mae-bebe.jpg" width="480" height="854" data-src="assets/exemplos/loops/mae-bebe.mp4" aria-hidden="true"></video><figcaption>Depoimento em casa</figcaption></figure>
-          <figure class="tile"><video muted loop playsinline preload="none" poster="assets/exemplos/loops/cozinha.jpg" width="854" height="480" data-src="assets/exemplos/loops/cozinha.mp4" aria-hidden="true"></video><figcaption>Cozinha</figcaption></figure>
-        </div>
-        <div class="wall__col wall__col--d" data-speed="-16">
-          <figure class="tile"><video muted loop playsinline preload="none" poster="assets/exemplos/loops/homem-oculos.jpg" width="480" height="864" data-src="assets/exemplos/loops/homem-oculos.mp4" aria-hidden="true"></video><figcaption>Apresentador</figcaption></figure>
-          <figure class="tile"><video muted loop playsinline preload="none" poster="assets/exemplos/loops/loira.jpg" width="480" height="854" data-src="assets/exemplos/loops/loira.mp4" aria-hidden="true"></video><figcaption>Selfie</figcaption></figure>
-        </div>
-        <div class="wall__col wall__col--d" data-speed="5">
-          <figure class="tile"><video muted loop playsinline preload="none" poster="assets/exemplos/loops/fazenda.jpg" width="480" height="854" data-src="assets/exemplos/loops/fazenda.mp4" aria-hidden="true"></video><figcaption>Campo / rural</figcaption></figure>
-          <figure class="tile"><video muted loop playsinline preload="none" poster="assets/exemplos/loops/especialista.jpg" width="480" height="854" data-src="assets/exemplos/loops/especialista.mp4" aria-hidden="true"></video><figcaption>Especialista de jaleco</figcaption></figure>
-        </div>
-      </div>
-      <div class="wrap galeria__foot">
-        <a class="btn btn--primary btn--lg" href="#oferta">Quero o meu rosto de VSL</a>
-        <p class="note">Exemplos gerados com o LoopVideo a partir de personagens criados por IA. O resultado varia com a imagem usada.</p>
-      </div>
-    </section>
-
-    <!-- [problema] -->
-    <section class="sec problema" id="problema" aria-labelledby="problema-titulo">
-      <div class="wrap split">
-        <div class="split__text">
-          <p class="eyebrow">O problema</p>
-          <h2 id="problema-titulo" class="h2">A VSL tem minutos. O vídeo de IA tem segundos.</h2>
-          <p class="lead">Quem edita VSL conhece o resto. Ou você grava com alguém, ou junta trechos de IA na timeline até fechar o tempo e torce pra ninguém notar o pulo. E o criativo que vendeu ontem cansa na semana que vem.</p>
-        </div>
-        <div class="split__side">
-          <div class="jump panel" aria-hidden="true">
-            <div class="jump__head"><span>Trechos de IA colados na timeline</span><span class="mono" id="jumpTc">0:00</span></div>
-            <div class="jump__track" id="jumpTrack">
-              <span class="jump__clip"></span><span class="jump__seam"><b>pulo</b></span>
-              <span class="jump__clip"></span><span class="jump__seam"><b>pulo</b></span>
-              <span class="jump__clip"></span>
-              <span class="jump__head-line" id="jumpHead"></span>
-            </div>
-          </div>
-          <ul class="dores">
-            <li><svg class="ico"><use href="#i-x"/></svg><span>Ator ou especialista pra agendar, gravar e pagar</span></li>
-            <li><svg class="ico"><use href="#i-x"/></svg><span>Vídeo de IA que acaba antes do lead</span></li>
-            <li><svg class="ico"><use href="#i-x"/></svg><span>Pulo visível bem no meio da história</span></li>
-            <li><svg class="ico"><use href="#i-x"/></svg><span>Crédito gasto num take que você nem aprovou</span></li>
-            <li><svg class="ico"><use href="#i-x"/></svg><span>Presell, mockup e formato espalhados em cinco ferramentas</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="wrap">
-        <p class="virada">O LoopVideo cuida do fundo. Você cuida da copy.</p>
-      </div>
-    </section>
-
-    <!-- [demo] -->
-    <section class="sec demo" id="demo" aria-labelledby="demo-titulo">
-      <div class="wrap split split--demo">
-        <div class="split__text">
-          <h2 id="demo-titulo" class="h2">Entrou uma foto. Saiu o especialista.</h2>
-          <p class="lead">A imagem que entrou e o vídeo que saiu do app. Arraste e compare.</p>
-          <p class="note">Exemplo gerado com o LoopVideo a partir de personagem criado por IA. O resultado varia com a imagem e com a IA escolhida.</p>
-        </div>
-        <div class="split__side">
-          <div class="compare" id="compare" style="--pos:50%">
-            <video class="compare__after" id="demoVideo" muted loop playsinline preload="none"
-                   poster="assets/exemplos/medico-foto.webp" width="720" height="1280" aria-label="Depois: o vídeo gerado pelo app">
-              <source data-src="assets/exemplos/medico-loop.webm" type="video/webm">
-              <source data-src="assets/exemplos/medico-loop.mp4" type="video/mp4">
-            </video>
-            <img class="compare__before" src="assets/exemplos/medico-foto.webp" width="720" height="1280" loading="lazy" decoding="async"
-                 alt="Antes: a foto de entrada, um especialista de terno cinza e gravata verde num laboratório">
-            <span class="compare__tag compare__tag--a">A foto</span>
-            <span class="compare__tag compare__tag--b">O vídeo</span>
-            <span class="tc tc--demo" aria-hidden="true"><span class="tc__dot"></span><span class="tc__k">falando há</span><span id="demoTc">00:00:00</span></span>
-            <span class="compare__line" aria-hidden="true"><span class="compare__knob"><svg viewBox="0 0 24 24"><path d="M9 6l-5 6 5 6M15 6l5 6-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
-            <input class="compare__range" id="compareRange" type="range" min="0" max="100" value="50" step="0.5"
-                   aria-label="Comparar a foto com o vídeo">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- [video-proprio] -->
-    <section class="sec sec--tight proprio" id="video-proprio" aria-labelledby="proprio-titulo">
-      <div class="wrap">
-        <div class="proprio__card panel">
-          <div class="proprio__text">
-            <h2 id="proprio-titulo" class="h3">Já tem um take bom? <span class="nowrap">O app só fecha o loop.</span></h2>
-            <p>Solte o seu vídeo no lugar da foto. Ele vira um loop sem emenda à vista, por menos da metade do custo.</p>
-          </div>
-          <div class="cost2" id="cost2">
-            <span class="cost2__old mono" aria-hidden="true">775</span>
-            <span class="cost2__new mono" aria-hidden="true">325</span>
-            <span class="cost2__chip">cerca de 325 créditos em vez de 775</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- [esteira] -->
-    <section class="sec esteira" id="esteira" aria-labelledby="esteira-titulo">
-      <div class="wrap">
-        <div class="sec__head">
-          <p class="eyebrow">Do anúncio à página</p>
-          <h2 id="esteira-titulo" class="h2">Quatro ferramentas. O funil inteiro.</h2>
-          <p class="lead">Em Direct Response, cada etapa pede uma peça diferente. O LoopVideo faz as quatro, e o resultado de uma vira a entrada da próxima.</p>
+          <p class="lead">Médico, mãe, produtor rural, cientista: o rosto que a oferta pedir. Cada um desses vídeos saiu do LoopVideo a partir de uma única imagem.</p>
         </div>
 
-        <ul class="toolbar" id="toolbar" aria-hidden="true">
-          <li data-tool="videos"><svg class="ico"><use href="#i-film"/></svg>Vídeos</li>
-          <li data-tool="prova"><svg class="ico"><use href="#i-news"/></svg>Prova visual</li>
-          <li data-tool="mockup"><svg class="ico"><use href="#i-box"/></svg>Mockup</li>
-          <li data-tool="imagens"><svg class="ico"><use href="#i-image"/></svg>Imagens</li>
+        <ul class="faces">
+          <li class="face reveal"><video data-src="assets/exemplos/loops/ruiva.mp4" poster="assets/exemplos/loops/ruiva.jpg" muted loop playsinline preload="none" width="480" height="854" aria-label="Exemplo: mulher em casa, estilo selfie"></video><span>Selfie em casa</span></li>
+          <li class="face reveal"><video data-src="assets/exemplos/loops/cirurgiao.mp4" poster="assets/exemplos/loops/cirurgiao.jpg" muted loop playsinline preload="none" width="480" height="864" aria-label="Exemplo: homem de roupa cirúrgica"></video><span>Bloco cirúrgico</span></li>
+          <li class="face reveal"><video data-src="assets/exemplos/loops/fazenda.mp4" poster="assets/exemplos/loops/fazenda.jpg" muted loop playsinline preload="none" width="480" height="854" aria-label="Exemplo: homem a cavalo no campo"></video><span>Campo</span></li>
+          <li class="face reveal"><video data-src="assets/exemplos/loops/mae-bebe.mp4" poster="assets/exemplos/loops/mae-bebe.jpg" muted loop playsinline preload="none" width="480" height="854" aria-label="Exemplo: mãe com bebê no colo"></video><span>Mãe em casa</span></li>
+          <li class="face reveal"><video data-src="assets/exemplos/loops/cientista.mp4" poster="assets/exemplos/loops/cientista.jpg" muted loop playsinline preload="none" width="480" height="596" aria-label="Exemplo: cientista de jaleco no laboratório"></video><span>Laboratório</span></li>
+          <li class="face reveal"><video data-src="assets/exemplos/loops/homem-oculos.mp4" poster="assets/exemplos/loops/homem-oculos.jpg" muted loop playsinline preload="none" width="480" height="864" aria-label="Exemplo: homem de óculos em casa"></video><span>Depoimento</span></li>
+          <li class="face reveal"><video data-src="assets/exemplos/loops/homem-camiseta.mp4" poster="assets/exemplos/loops/homem-camiseta.jpg" muted loop playsinline preload="none" width="480" height="850" aria-label="Exemplo: homem de camiseta, estilo UGC"></video><span>UGC</span></li>
+          <li class="face reveal"><video data-src="assets/exemplos/loops/loira.mp4" poster="assets/exemplos/loops/loira.jpg" muted loop playsinline preload="none" width="480" height="854" aria-label="Exemplo: mulher falando pra câmera na cozinha"></video><span>Na cozinha</span></li>
         </ul>
+        <p class="note center">Exemplos sem áudio, como saem do app. Todos os personagens foram criados por IA.</p>
+      </div>
+    </section>
 
-        <ol class="belt" id="belt">
-          <li class="stage" data-tools="mockup imagens videos" tabindex="0">
-            <span class="stage__n mono">1</span>
-            <div class="stage__viz viz-ad" aria-hidden="true">
-              <div class="ad">
-                <div class="ad__top"><i></i><span></span><em>Patrocinado</em></div>
-                <video muted loop playsinline preload="none" poster="assets/exemplos/mockup/cena-06.jpg" width="480" height="854" data-src="assets/exemplos/mockup/video-03.mp4"></video>
-                <div class="ad__cta"><span></span><b>Saiba mais</b></div>
+    <!-- [como] -->
+    <section class="sec sec--panel" id="como" aria-labelledby="como-titulo">
+      <div class="wrap">
+        <div class="head head--center reveal">
+          <p class="eyebrow">Como funciona</p>
+          <h2 id="como-titulo" class="h2">Três passos. Nenhum estúdio.</h2>
+        </div>
+
+        <div class="how" id="how">
+          <ol class="how__steps" role="group" aria-label="Passos">
+            <li><button type="button" class="how__step is-on" data-step="0" aria-pressed="true"><span class="how__n">1</span><span><b>Solte a foto</b><small>Uma imagem ou várias de uma vez. Elas entram numa fila.</small></span><i class="how__bar"></i></button></li>
+            <li><button type="button" class="how__step" data-step="1" aria-pressed="false"><span class="how__n">2</span><span><b>Aprove a prévia</b><small>Você vê a pessoa falando antes do vídeo final. Não gostou? Gera outra.</small></span><i class="how__bar"></i></button></li>
+            <li><button type="button" class="how__step" data-step="2" aria-pressed="false"><span class="how__n">3</span><span><b>Baixe e use</b><small>Sai um MP4 na duração que você escolheu, pronto pra timeline.</small></span><i class="how__bar"></i></button></li>
+          </ol>
+
+          <div class="app reveal" data-state="0" id="app" aria-hidden="true">
+            <div class="app__bar">
+              <span class="app__brand"><svg class="ico"><use href="#i-loop"/></svg>LoopVideo</span>
+              <span class="app__tab is-on"><svg class="ico"><use href="#i-film"/></svg>Vídeos</span>
+              <span class="app__tab"><svg class="ico"><use href="#i-image"/></svg>Imagens</span>
+              <span class="app__tab"><svg class="ico"><use href="#i-news"/></svg>Prova visual</span>
+              <span class="app__tab"><svg class="ico"><use href="#i-box"/></svg>Mockup</span>
+            </div>
+            <div class="app__body">
+              <div class="app__side">
+                <p class="app__h">Novo vídeo em loop</p>
+                <div class="drop">
+                  <img class="drop__img" src="assets/exemplos/loops/ruiva.jpg" width="480" height="854" alt="" loading="lazy">
+                  <span class="drop__empty"><svg class="ico"><use href="#i-upload"/></svg>Arraste aqui</span>
+                  <span class="drop__name">ruiva.jpg</span>
+                </div>
+                <p class="app__label">Personagem</p>
+                <div class="seg"><span>Homem</span><span class="is-on">Mulher</span></div>
+                <p class="app__label">Duração</p>
+                <div class="seg seg--dur"><span>curta</span><span class="is-on">a da VSL</span><span>longa</span></div>
+                <span class="app__go"><svg class="ico"><use href="#i-loop"/></svg>Gerar loop</span>
+              </div>
+              <div class="app__main">
+                <p class="app__h">Seus vídeos</p>
+                <p class="app__empty">Os vídeos aparecem aqui.</p>
+                <div class="job">
+                  <div class="job__top">
+                    <img src="assets/exemplos/loops/ruiva.jpg" width="480" height="854" alt="" loading="lazy">
+                    <span><b>ruiva.jpg</b><small>Mulher</small></span>
+                    <em class="job__st job__st--wait"><svg class="ico"><use href="#i-eye"/></svg>Precisa de você</em>
+                    <em class="job__st job__st--ok"><svg class="ico"><use href="#i-check"/></svg>Pronto</em>
+                    <em class="job__st job__st--run">Gerando…</em>
+                  </div>
+                  <div class="job__body">
+                    <div class="job__vid">
+                      <video data-src="assets/exemplos/loops/ruiva.mp4" poster="assets/exemplos/loops/ruiva.jpg" muted loop playsinline preload="none" width="480" height="854"></video>
+                    </div>
+                    <div class="job__act">
+                      <span class="abtn abtn--pri abtn--approve"><svg class="ico"><use href="#i-check"/></svg>Aprovar</span>
+                      <span class="abtn abtn--approve">Gerar outra</span>
+                      <span class="abtn abtn--pri abtn--done"><svg class="ico"><use href="#i-play"/></svg>Abrir vídeo</span>
+                      <span class="abtn abtn--done"><svg class="ico"><use href="#i-folder"/></svg>Abrir pasta</span>
+                      <span class="job__prog"><i></i></span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <h3 class="stage__t">Anúncio</h3>
-            <p class="stage__p">Volume. Hook novo, ângulo novo, formato certo pra cada posicionamento.</p>
-            <p class="stage__tools">Mockup (vídeos de 5 s) · Imagens (9:16, 4:5, 16:9) · Vídeos (rosto falando)</p>
-          </li>
-          <li class="stage" data-tools="prova" tabindex="0">
-            <span class="stage__n mono">2</span>
-            <div class="stage__viz viz-pre" aria-hidden="true">
-              <div class="mini-page">
-                <div class="mini-page__mast">Diário Vital</div>
-                <span class="sk sk--tag"></span>
-                <span class="sk sk--h"></span><span class="sk sk--h sk--short"></span>
-                <img src="assets/exemplos/mockup/cena-04.jpg" width="540" height="960" alt="" loading="lazy" decoding="async">
-                <span class="sk"></span><span class="sk"></span><span class="sk sk--short"></span>
-              </div>
-            </div>
-            <h3 class="stage__t">Presell / advertorial</h3>
-            <p class="stage__p">Cara de matéria, não de anúncio.</p>
-            <p class="stage__tools">Prova visual</p>
-          </li>
-          <li class="stage" data-tools="videos mockup prova" tabindex="0">
-            <span class="stage__n mono">3</span>
-            <div class="stage__viz viz-vsl" aria-hidden="true">
-              <div class="player">
-                <video muted loop playsinline preload="none" poster="assets/exemplos/loops/cozinha.jpg" width="854" height="480" data-src="assets/exemplos/loops/cozinha.mp4"></video>
-                <div class="player__bar"><svg class="ico"><use href="#i-play"/></svg><span class="player__track"><i></i></span></div>
-              </div>
-            </div>
-            <h3 class="stage__t">VSL</h3>
-            <p class="stage__p">Um rosto do começo ao fim, b-roll e prova na tela.</p>
-            <p class="stage__tools">Vídeos · Mockup · Prova visual</p>
-          </li>
-          <li class="stage" data-tools="mockup imagens" tabindex="0">
-            <span class="stage__n mono">4</span>
-            <div class="stage__viz viz-page" aria-hidden="true">
-              <div class="mini-page mini-page--sale">
-                <img src="assets/exemplos/mockup/cena-10.jpg" width="540" height="960" alt="" loading="lazy" decoding="async">
-                <span class="sk sk--h"></span><span class="sk sk--short"></span>
-                <span class="mini-page__btn"></span>
-              </div>
-            </div>
-            <h3 class="stage__t">Página de vendas</h3>
-            <p class="stage__p">Produto em cena e imagens limpas.</p>
-            <p class="stage__tools">Mockup · Imagens</p>
-          </li>
-        </ol>
-        <div class="belt__rail" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-        <p class="esteira__fecho">Teste mais ângulos sem abrir mais abas.</p>
-      </div>
-    </section>
-
-    <!-- [prova-visual] -->
-    <section class="sec tool-sec prova" id="prova-visual" aria-labelledby="prova-titulo">
-      <div class="wrap">
-        <div class="tool-sec__head">
-          <p class="eyebrow eyebrow--tool"><svg class="ico"><use href="#i-news"/></svg>Prova visual · para presell, advertorial e VSL</p>
-          <h2 id="prova-titulo" class="h2">A matéria que vem antes da VSL.</h2>
-          <p class="lead">Cole a copy ou uma matéria real e saia com uma página de portal, revista ou blog. Sem designer, no idioma da oferta.</p>
-        </div>
-
-        <div class="press" id="press" aria-hidden="true">
-          <div class="press__paste panel">
-            <div class="press__label">Texto colado</div>
-            <p class="press__text" id="pressText"></p>
-            <span class="press__btn"><svg class="ico"><use href="#i-update"/></svg>Gerar 3 provas</span>
-          </div>
-          <div class="fan" id="fan">
-            <article class="art art--portal">
-              <header class="art__mast"><b>Diário Vital</b><span>Saúde · Rotina</span></header>
-              <span class="art__lang mono">PT</span>
-              <span class="art__tag">Bem-estar</span>
-              <h3 class="art__h">Como a rotina da manhã muda o seu dia</h3>
-              <div class="art__img"><img src="assets/exemplos/mockup/cena-04.jpg" width="540" height="960" alt="" loading="lazy" decoding="async"></div>
-              <span class="sk sk--dark"></span><span class="sk sk--dark"></span><span class="sk sk--dark sk--short"></span>
-            </article>
-            <article class="art art--mag">
-              <span class="art__lang mono">EN</span>
-              <div class="art__cover"><img src="assets/exemplos/loops/cientista.jpg" width="480" height="596" alt="" loading="lazy" decoding="async"><b>Vital Monthly</b></div>
-              <h3 class="art__h">How your morning routine shapes your day</h3>
-              <span class="sk sk--dark"></span><span class="sk sk--dark sk--short"></span>
-            </article>
-            <article class="art art--blog">
-              <span class="art__lang mono">DE</span>
-              <span class="art__stamp">Anzeige</span>
-              <header class="art__mast art__mast--blog"><b>Gesund Blog</b></header>
-              <h3 class="art__h">Wie die Morgenroutine Ihren Tag prägt</h3>
-              <div class="art__img"><img src="assets/exemplos/mockup/cena-01.jpg" width="540" height="960" alt="" loading="lazy" decoding="async"></div>
-              <span class="sk sk--dark"></span><span class="sk sk--dark"></span><span class="sk sk--dark sk--short"></span>
-            </article>
           </div>
         </div>
 
-        <ul class="feats">
-          <li><strong>Presell com cara de editorial.</strong> Portal, revista, jornal, blog, infográfico, newsletter, passo a passo.</li>
-          <li><strong>Qualquer idioma.</strong> O texto entra em português e a página sai em inglês, alemão, espanhol… Pronta pra escalar em outro país.</li>
-          <li><strong>Prova de mídia de verdade.</strong> Resuma uma matéria publicada e mostre na VSL, com o nome do veículo e o link no rodapé.</li>
-          <li><strong>Sem fonte, não entra.</strong> Estudo, número ou especialista só aparecem com fonte real. Se a copy citar sem fonte, o app recusa antes de gastar. Menos risco pra conta de anúncio.</li>
-          <li><strong>Advertorial sinalizado.</strong> No modo da marca, a página leva a etiqueta de publicidade do idioma.</li>
+        <p class="note center how__cap">Representação simplificada da interface do app.</p>
+
+        <ul class="perks">
+          <li class="reveal"><svg class="ico"><use href="#i-queue"/></svg><span><b>Fila</b>Solte dez fotos e vá editar.</span></li>
+          <li class="reveal"><svg class="ico"><use href="#i-resume"/></svg><span><b>Retoma sozinho</b>Fechou no meio? Continua de onde parou.</span></li>
+          <li class="reveal"><svg class="ico"><use href="#i-coins"/></svg><span><b>Custo antes</b>Cada botão mostra o custo antes do clique.</span></li>
+          <li class="reveal"><svg class="ico"><use href="#i-bell"/></svg><span><b>Avisa</b>O Windows chama quando fica pronto.</span></li>
         </ul>
-        <div class="tool-sec__foot">
-          <p class="quote">A prova que segura o lead, pronta em minutos.</p>
-          <a class="btn btn--ghost btn--lg" href="#oferta">Quero fazer minhas presells</a>
-        </div>
       </div>
     </section>
 
-    <!-- [mockup] -->
-    <section class="sec tool-sec mockup" id="mockup" aria-labelledby="mockup-titulo">
+    <!-- [onde] -->
+    <section class="sec" id="onde" aria-labelledby="onde-titulo">
       <div class="wrap">
-        <div class="tool-sec__head">
-          <p class="eyebrow eyebrow--tool"><svg class="ico"><use href="#i-box"/></svg>Mockup · produto em cena</p>
-          <h2 id="mockup-titulo" class="h2">Seu pote em cena. Sem estúdio, sem fotógrafo.</h2>
-          <p class="lead">Suba a foto do frasco e escolha o nicho. Saem cenas do produto prontas pra criativo, VSL e página. As melhores viram vídeos de 5 s.</p>
+        <div class="head head--split reveal">
+          <div>
+            <p class="eyebrow">Onde ele trabalha</p>
+            <h2 id="onde-titulo" class="h2">Do anúncio à VSL, <br>ele encaixa.</h2>
+          </div>
+          <p class="lead">Horizontal, vertical ou dentro da matéria. Ele não cansa, não pede cachê e não precisa de estúdio.</p>
         </div>
 
-        <!-- MÍDIA DO MOCKUP: saídas reais de clientes (assets/exemplos/mockup). Troque ou peça autorização antes de publicar (ver README).
-             As cenas com <video> são as que viraram vídeo de 5 s. -->
-        <ul class="mock" id="mockGrid">
-          <li><img src="assets/exemplos/mockup/cena-01.jpg" width="540" height="960" alt="Frasco em cena: bancada de cozinha" loading="lazy" decoding="async"></li>
-          <li><img src="assets/exemplos/mockup/cena-02.jpg" width="540" height="960" alt="Frasco em cena: fundo azul com moléculas" loading="lazy" decoding="async"></li>
-          <li class="is-vid"><video muted loop playsinline preload="none" poster="assets/exemplos/mockup/cena-08.jpg" width="480" height="854" data-src="assets/exemplos/mockup/video-01.mp4" aria-label="Cena que virou vídeo de 5 s: frasco na bancada de mármore"></video><span class="mock__badge"><svg class="ico"><use href="#i-film"/></svg>5 s</span></li>
-          <li><img src="assets/exemplos/mockup/cena-03.jpg" width="540" height="960" alt="Frasco em cena: pedra escura e caneca" loading="lazy" decoding="async"></li>
-          <li><img src="assets/exemplos/mockup/cena-09.jpg" width="540" height="960" alt="Pote em cena: jaleco ao fundo" loading="lazy" decoding="async"></li>
-          <li><img src="assets/exemplos/mockup/cena-10.jpg" width="540" height="960" alt="Pote em cena: jardim" loading="lazy" decoding="async"></li>
-          <li><img src="assets/exemplos/mockup/cena-04.jpg" width="540" height="960" alt="Frasco em cena: café da manhã" loading="lazy" decoding="async"></li>
-          <li class="is-vid"><video muted loop playsinline preload="none" poster="assets/exemplos/mockup/cena-07.jpg" width="480" height="854" data-src="assets/exemplos/mockup/video-02.mp4" aria-label="Cena que virou vídeo de 5 s: frasco na mesa da sala"></video><span class="mock__badge"><svg class="ico"><use href="#i-film"/></svg>5 s</span></li>
-          <li><img src="assets/exemplos/mockup/cena-05.jpg" width="540" height="960" alt="Frasco em cena: pedestal azul" loading="lazy" decoding="async"></li>
-          <li><img src="assets/exemplos/mockup/cena-11.jpg" width="540" height="960" alt="Pote em cena: bancada com canecas" loading="lazy" decoding="async"></li>
-          <li class="is-vid"><video muted loop playsinline preload="none" poster="assets/exemplos/mockup/cena-06.jpg" width="480" height="854" data-src="assets/exemplos/mockup/video-03.mp4" aria-label="Cena que virou vídeo de 5 s: frasco numa pedra na água"></video><span class="mock__badge"><svg class="ico"><use href="#i-film"/></svg>5 s</span></li>
-          <li><img src="assets/exemplos/mockup/cena-12.jpg" width="540" height="960" alt="Pote em cena: luz verde e limão" loading="lazy" decoding="async"></li>
-        </ul>
-
-        <ul class="feats">
-          <li><strong>Cenas por nicho.</strong> Produto sozinho, com pessoa ou em ambiente de fábrica. Idade e sexo da pessoa já vêm do nicho.</li>
-          <li><strong>Cores do seu pote.</strong> A paleta da cena sai do rótulo, pra tudo parecer da mesma marca.</li>
-          <li><strong>Sem texto no fundo.</strong> A mesma imagem serve pra qualquer país.</li>
-          <li><strong>De imagem a vídeo.</strong> Marque as melhores e elas viram vídeos de 5 s, com movimento suave e o rótulo parado. B-roll pra VSL ou abertura de criativo.</li>
-          <li><strong>Sempre cena nova.</strong> Pediu mais? Saem variações da mesma cena, cada uma diferente.</li>
-        </ul>
-        <div class="tool-sec__foot">
-          <p class="quote">Um ângulo novo por dia sem marcar sessão de foto.</p>
-          <a class="btn btn--ghost btn--lg" href="#oferta">Quero meu produto em cena</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- [imagens] -->
-    <section class="sec tool-sec imagens" id="imagens" aria-labelledby="imagens-titulo">
-      <div class="wrap">
-        <div class="tool-sec__head">
-          <p class="eyebrow eyebrow--tool"><svg class="ico"><use href="#i-image"/></svg>Imagens · o criativo no formato certo</p>
-          <h2 id="imagens-titulo" class="h2">Cada posicionamento no formato certo.</h2>
-          <p class="lead">Pegue a imagem que você já tem e deixe pronta pro feed, pros Stories e pro YouTube. Sem refazer do zero.</p>
-        </div>
-        <div class="img-grid">
-          <figure class="img-card">
-            <div class="compare compare--sm" id="cleanCompare" style="--pos:55%">
-              <img class="compare__after" src="assets/exemplos/imagens/loira-depois.webp" width="480" height="854" loading="lazy" decoding="async" alt="Depois: a mesma imagem sem legenda e sem marca d'água">
-              <img class="compare__before" src="assets/exemplos/imagens/loira-antes.webp" width="480" height="854" loading="lazy" decoding="async" alt="Antes: a imagem com legenda e marca d'água por cima">
-              <span class="compare__tag compare__tag--a">Com legenda</span>
-              <span class="compare__tag compare__tag--b">Limpa</span>
-              <span class="compare__line" aria-hidden="true"><span class="compare__knob"><svg viewBox="0 0 24 24"><path d="M9 6l-5 6 5 6M15 6l5 6-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
-              <input class="compare__range" type="range" min="0" max="100" value="55" step="0.5" aria-label="Comparar a imagem com legenda e a imagem limpa">
+        <div class="ctx">
+          <figure class="ctx__item ctx__item--vsl reveal">
+            <div class="browser">
+              <div class="browser__bar"><i></i><i></i><i></i><span>suaoferta.com/vsl</span></div>
+              <div class="browser__page">
+                <p class="vsl__kick">Assista antes que saia do ar</p>
+                <p class="vsl__h">O hábito de 30 segundos que mudou a minha cozinha</p>
+                <div class="vsl__player">
+                  <video data-src="assets/exemplos/loops/cozinha.mp4" poster="assets/exemplos/loops/cozinha.jpg" muted loop playsinline preload="none" width="854" height="480" aria-label="Exemplo: apresentadora na cozinha dentro de uma página de VSL"></video>
+                  <span class="vsl__bar"><i></i></span>
+                </div>
+                <span class="vsl__btn">Quero conhecer</span>
+              </div>
             </div>
+            <figcaption><b>VSL</b> O fundo da página de vendas, em 16:9.</figcaption>
           </figure>
-          <figure class="img-card img-card--ratio">
-            <div class="ratio" id="ratio" aria-hidden="true">
-              <div class="ratio__frame" id="ratioFrame">
-                <img src="assets/exemplos/loops/cozinha.jpg" width="854" height="480" alt="" loading="lazy" decoding="async">
-                <span class="ratio__sweep"></span>
+
+          <figure class="ctx__item ctx__item--news reveal">
+            <div class="paper">
+              <p class="paper__mast">Saúde em Pauta</p>
+              <p class="paper__tag">Publicidade</p>
+              <p class="paper__h">Pesquisadora explica o que muda depois dos 40</p>
+              <div class="paper__vid">
+                <video data-src="assets/exemplos/loops/cientista.mp4" poster="assets/exemplos/loops/cientista.jpg" muted loop playsinline preload="none" width="480" height="596" aria-label="Exemplo: cientista em vídeo dentro de uma matéria"></video>
               </div>
+              <span class="paper__l"></span><span class="paper__l"></span><span class="paper__l paper__l--s"></span>
             </div>
-            <div class="ratio__chips" id="ratioChips" aria-hidden="true"><span class="mono">9:16</span><span class="mono">4:5</span><span class="mono">16:9</span></div>
+            <figcaption><b>Presell</b> O especialista dentro da matéria.</figcaption>
+          </figure>
+
+          <figure class="ctx__item ctx__item--feed reveal">
+            <div class="phone">
+              <div class="feed__top"><i></i><span><b>suamarca</b><small>Patrocinado</small></span></div>
+              <div class="feed__vid">
+                <video data-src="assets/exemplos/loops/ruiva.mp4" poster="assets/exemplos/loops/ruiva.jpg" muted loop playsinline preload="none" width="480" height="854" aria-label="Exemplo: mulher falando em um anúncio vertical"></video>
+              </div>
+              <div class="feed__cta">Saiba mais <svg class="ico"><use href="#i-arrow"/></svg></div>
+              <div class="feed__icons"><svg class="ico"><use href="#i-heart"/></svg><svg class="ico"><use href="#i-chat"/></svg></div>
+            </div>
+            <figcaption><b>Anúncio</b> Vertical, pro feed e pros Stories.</figcaption>
           </figure>
         </div>
-        <ul class="feats">
-          <li><strong>Muda o formato.</strong> 9:16, 4:5, 16:9 e outros. A IA preenche o que falta, sem esticar.</li>
-          <li><strong>Tira legenda e marca d'água.</strong> Das suas peças, prints e exportações antigas, mantendo o resto igual.</li>
-          <li><strong>Melhora a qualidade.</strong> Mais detalhe, mais nitidez ou só a pele.</li>
-          <li><strong>Antes e depois ilustrativo.</strong> Para VSL e página, em ambientes diferentes.</li>
-          <li><strong>Encadeia.</strong> Limpa, muda o formato e melhora numa sequência só.</li>
-        </ul>
-        <div class="tool-sec__foot">
-          <p class="quote">Um criativo vencedor vira três posicionamentos.</p>
+      </div>
+    </section>
+
+    <!-- [ferramentas] -->
+    <section class="sec sec--panel" id="ferramentas" aria-labelledby="ferr-titulo">
+      <div class="wrap">
+        <div class="head head--center reveal">
+          <p class="eyebrow">E tem mais</p>
+          <h2 id="ferr-titulo" class="h2">O resto do funil, <br>na mesma janela.</h2>
+          <p class="lead">Presell, produto em cena e criativo limpo: as peças que cercam a VSL saem do mesmo app, sem designer e sem estúdio.</p>
         </div>
-        <p class="note">Use só imagens que são suas ou que você tem direito de usar. Antes e depois tem regra própria em cada plataforma de anúncio: confira antes de subir.</p>
-      </div>
-    </section>
 
-    <!-- [fatos] -->
-    <section class="fatos" id="fatos" aria-label="Em números">
-      <div class="wrap">
-        <div class="ruler" aria-hidden="true"><span class="ruler__head" id="rulerHead"></span></div>
-        <ul class="fatos__list">
-          <li><strong>1 foto</strong><span>é o que entra</span></li>
-          <li><strong>0 pulos</strong><span>à vista, do começo ao fim</span></li>
-          <li><strong>1 aprovação</strong><span>antes de gastar o resto</span></li>
-          <li><strong>4 ferramentas</strong><span>do anúncio à página</span></li>
-        </ul>
-      </div>
-    </section>
+        <!-- Mockup -->
+        <article class="tool tool--mock reveal" id="mockup" aria-labelledby="mock-titulo">
+          <div class="tool__text">
+            <p class="tool__kind"><svg class="ico"><use href="#i-box"/></svg>Mockup</p>
+            <h3 id="mock-titulo" class="h3">Seu pote em qualquer cena.</h3>
+            <p>Suba uma foto do frasco. Saem cenas do produto na mesa, na fábrica ou na mão de alguém, com o rótulo do jeito que ele é. As melhores viram vídeo.</p>
+            <div class="chips" role="group" aria-label="Tipo de cena" id="mockTabs">
+              <button type="button" class="chip is-on" data-set="produto" aria-pressed="true">Produto</button>
+              <button type="button" class="chip" data-set="fabrica" aria-pressed="false">Fábrica</button>
+              <button type="button" class="chip" data-set="pessoa" aria-pressed="false">Com pessoa</button>
+            </div>
+          </div>
+          <div class="mock" id="mock">
+            <figure class="mock__in">
+              <img src="assets/exemplos/campanha/pote.webp" width="420" height="745" alt="Foto do pote que entrou no app" loading="lazy">
+              <figcaption>A foto que entrou</figcaption>
+            </figure>
+            <svg class="mock__arrow ico" aria-hidden="true"><use href="#i-arrow"/></svg>
+            <div class="mock__out">
+              <div class="mock__set is-on" data-set="produto">
+                <img src="assets/exemplos/campanha/produto-1.webp" width="540" height="968" alt="Cena gerada: pote na mesa do café da manhã" loading="lazy">
+                <img src="assets/exemplos/campanha/produto-2.webp" width="540" height="968" alt="Cena gerada: pote numa pedra entre plantas" loading="lazy">
+                <div class="mock__v"><video data-src="assets/exemplos/campanha/video-produto.mp4" poster="assets/exemplos/campanha/video-produto.webp" muted loop playsinline preload="none" width="540" height="972" aria-label="Vídeo gerado do pote em cena"></video><span>vídeo</span></div>
+              </div>
+              <div class="mock__set" data-set="fabrica">
+                <img src="assets/exemplos/campanha/fabrica-1.webp" width="540" height="968" alt="Cena gerada: pote na linha de produção" loading="lazy">
+                <img src="assets/exemplos/campanha/fabrica-4.webp" width="540" height="968" alt="Cena gerada: potes na esteira da fábrica" loading="lazy">
+                <div class="mock__v"><video data-src="assets/exemplos/campanha/video-fabrica.mp4" poster="assets/exemplos/campanha/video-fabrica.webp" muted loop playsinline preload="none" width="540" height="972" aria-label="Vídeo gerado dos potes na esteira"></video><span>vídeo</span></div>
+              </div>
+              <div class="mock__set" data-set="pessoa">
+                <img src="assets/exemplos/campanha/pessoa-2.webp" width="540" height="968" alt="Cena gerada: mulher à mesa com o pote" loading="lazy">
+                <img src="assets/exemplos/campanha/pessoa-4.webp" width="540" height="968" alt="Cena gerada: mulher na academia com o pote" loading="lazy">
+                <div class="mock__v"><video data-src="assets/exemplos/campanha/video-pessoa.mp4" poster="assets/exemplos/campanha/video-pessoa.webp" muted loop playsinline preload="none" width="540" height="972" aria-label="Vídeo gerado: mulher segurando o pote perto do rosto"></video><span>vídeo</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
 
-    <!-- [antes-depois] -->
-    <section class="sec versus" id="antes-depois" aria-labelledby="versus-titulo">
-      <div class="wrap">
-        <h2 id="versus-titulo" class="h2 sec__h">A mesma VSL, dois caminhos.</h2>
-        <div class="versus__grid">
-          <div class="vs vs--sem">
-            <h3>Sem o LoopVideo</h3>
-            <ul>
-              <li><svg class="ico"><use href="#i-x"/></svg><span>Especialista pra agendar e gravar</span></li>
-              <li><svg class="ico"><use href="#i-x"/></svg><span>Trechos de IA colados na timeline</span></li>
-              <li><svg class="ico"><use href="#i-x"/></svg><span>Pulo que o público nota</span></li>
-              <li><svg class="ico"><use href="#i-x"/></svg><span>Crédito gasto antes de ver o take</span></li>
-              <li><svg class="ico"><use href="#i-x"/></svg><span>Presell com designer, foto com estúdio</span></li>
+        <div class="tools2">
+          <!-- Prova visual -->
+          <article class="tool tool--prova reveal" id="prova-visual" aria-labelledby="prova-titulo">
+            <div class="tool__text">
+              <p class="tool__kind"><svg class="ico"><use href="#i-news"/></svg>Prova visual</p>
+              <h3 id="prova-titulo" class="h3">A matéria que vem antes da VSL.</h3>
+              <p>Cole a copy ou uma matéria real e saia com a imagem da página de portal, revista ou blog, pronta pra mostrar na VSL ou na presell, no idioma da oferta.</p>
+            </div>
+            <div class="art" id="art">
+              <div class="chips chips--sm" role="group" aria-label="Idioma do exemplo" id="artLang">
+                <button type="button" class="chip is-on" data-lang="pt" aria-pressed="true">PT</button>
+                <button type="button" class="chip" data-lang="en" aria-pressed="false">EN</button>
+                <button type="button" class="chip" data-lang="es" aria-pressed="false">ES</button>
+                <button type="button" class="chip" data-lang="de" aria-pressed="false">DE</button>
+              </div>
+              <div class="art__page" lang="pt-BR" aria-live="off">
+                <div class="art__mast"><span>Vida &amp; Bem-estar</span><em data-t="tag">Publicidade</em></div>
+                <p class="art__h" data-t="h">Aos 58, ela trocou o café da manhã e diz que nunca teve tanta disposição</p>
+                <p class="art__by" data-t="by">Por Redação · 4 min de leitura</p>
+                <img src="assets/exemplos/campanha/pessoa-2.webp" width="540" height="968" alt="Imagem da matéria de exemplo" loading="lazy">
+                <p class="art__p" data-t="p">Depois de anos tentando de tudo, a aposentada conta o que mudou na rotina e por que a família começou a perguntar o segredo.</p>
+              </div>
+              <p class="art__note">Exemplo ilustrativo com veículo fictício. O app entrega a matéria como imagem.</p>
+            </div>
+          </article>
+
+          <!-- Imagens -->
+          <article class="tool tool--img reveal" id="imagens" aria-labelledby="img-titulo">
+            <div class="tool__text">
+              <p class="tool__kind"><svg class="ico"><use href="#i-image"/></svg>Imagens</p>
+              <h3 id="img-titulo" class="h3">Criativo limpo, no formato certo.</h3>
+              <p>Tire legenda e marca de um criativo, melhore a qualidade ou leve pro formato de cada posicionamento.</p>
+            </div>
+            <div class="ba">
+              <figure><img src="assets/exemplos/imagens/textos-antes.webp" width="480" height="855" alt="Antes: criativo com legenda" loading="lazy"><figcaption>Antes</figcaption></figure>
+              <figure class="ba__after"><img src="assets/exemplos/imagens/textos-depois.webp" width="480" height="855" alt="Depois: a mesma imagem sem a legenda" loading="lazy"><figcaption><svg class="ico"><use href="#i-sparkle"/></svg>Depois</figcaption></figure>
+            </div>
+            <ul class="tags">
+              <li><svg class="ico"><use href="#i-eraser"/></svg>Remover textos</li>
+              <li><svg class="ico"><use href="#i-sparkle"/></svg>Qualidade</li>
+              <li><svg class="ico"><use href="#i-crop"/></svg>9:16 · 4:5 · 16:9</li>
+              <li><svg class="ico"><use href="#i-split"/></svg>Antes e depois</li>
             </ul>
-          </div>
-          <div class="vs vs--com">
-            <h3><img src="assets/img/icone-64.webp" width="24" height="24" alt="">Com o LoopVideo</h3>
-            <ul>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Uma foto e um clique</span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Um rosto do começo ao fim</span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Sem emenda à vista</span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Você aprova antes de gastar o resto</span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Presell, mockup e formato no mesmo app</span></li>
-            </ul>
-          </div>
+          </article>
+        </div>
+
+        <div class="own reveal">
+          <svg class="ico ico--lg"><use href="#i-film"/></svg>
+          <p><b>Já tem um vídeo gravado?</b> Solte ele no lugar da foto. Vira loop do mesmo jeito, mais rápido e mais barato.</p>
         </div>
       </div>
     </section>
 
-    <!-- [para-quem] -->
-    <section class="sec quem" id="para-quem" aria-labelledby="quem-titulo">
+    <!-- [planos] -->
+    <section class="sec" id="planos" aria-labelledby="planos-titulo">
       <div class="wrap">
-        <h2 id="quem-titulo" class="h2 sec__h">Pra quem vive de criativo.</h2>
-        <ul class="quem__list">
-          <li><svg class="ico ico--lg"><use href="#i-cut"/></svg><h3>Editor de VSL</h3><p>Entrega o fundo da VSL no mesmo dia, sem esperar gravação.</p></li>
-          <li><svg class="ico ico--lg"><use href="#i-target"/></svg><h3>Gestor de tráfego</h3><p>Sobe criativo novo antes do atual cansar. Mais rostos, mais formatos, mais ângulos.</p></li>
-          <li><svg class="ico ico--lg"><use href="#i-pen"/></svg><h3>Copywriter</h3><p>Testa a copy com rosto, presell e prova sem depender de ninguém.</p></li>
-          <li><svg class="ico ico--lg"><use href="#i-layers"/></svg><h3>Produtor e infoprodutor</h3><p>Monta o funil de uma oferta nova sem montar uma equipe junto.</p></li>
-          <li><svg class="ico ico--lg"><use href="#i-users"/></svg><h3>Agência e operação</h3><p>Fila de criativos rodando enquanto o time cuida do resto. <a href="#oferta">Ver plano Empresarial.</a></p></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- [dia-a-dia] -->
-    <section class="sec dia" id="dia-a-dia" aria-labelledby="dia-titulo">
-      <div class="wrap">
-        <h2 id="dia-titulo" class="h2 sec__h">Roda enquanto você edita.</h2>
-        <ul class="grid6">
-          <li><svg class="ico ico--lg"><use href="#i-queue"/></svg><h3>Fila</h3><p>Solte várias imagens. Ele gera uma depois da outra.</p></li>
-          <li><svg class="ico ico--lg"><use href="#i-resume"/></svg><h3>Retoma sozinho</h3><p>Fechou no meio? Continua de onde parou, sem cobrar de novo.</p></li>
-          <li><svg class="ico ico--lg"><use href="#i-coins"/></svg><h3>Custo antes</h3><p>Cada botão mostra os créditos antes do clique.</p></li>
-          <li><svg class="ico ico--lg"><use href="#i-tray"/></svg><h3>Perto do relógio</h3><p>Minimiza e segue gerando. O PC continua seu.</p></li>
-          <li><svg class="ico ico--lg"><use href="#i-bell"/></svg><h3>Avisos do Windows</h3><p>Pronto, erro ou esperando aprovação: o Windows te chama.</p></li>
-          <li><svg class="ico ico--lg"><use href="#i-update"/></svg><h3>Atualiza num clique</h3><p>Versão nova aparece no app. Um clique e pronto.</p></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- [custos] -->
-    <section class="sec custos" id="custos" aria-labelledby="custos-titulo">
-      <div class="wrap split">
-        <div class="split__text">
-          <p class="eyebrow">Transparência</p>
-          <h2 id="custos-titulo" class="h2">Você paga a IA direto na fonte.</h2>
-          <p class="lead">A IA roda na sua conta Magnific, com o seu login. Os créditos saem de lá, sem margem nossa no meio. O app mostra o custo antes de cada clique.</p>
-        </div>
-        <div class="split__side">
-          <div class="receipt panel">
-            <dl>
-              <div class="receipt__row"><dt>Vídeo a partir de uma foto</dt><dd>cerca de <b>775</b> créditos</dd></div>
-              <div class="receipt__row"><dt>Loop a partir de um vídeo seu</dt><dd>cerca de <b>325</b> créditos</dd></div>
-              <div class="receipt__row"><dt>Refazer um take antes de aprovar</dt><dd>cerca de <b>450</b> créditos</dd></div>
-            </dl>
-            <p class="receipt__hi">O custo não muda com a duração do vídeo. <span class="ph">[CONFIRMAR]</span></p>
-            <p class="receipt__note">Valores com as opções padrão. Outra IA ou 4K pode custar mais, e o app mostra a diferença antes de você gerar. Imagens, Prova visual e Mockup mostram o custo em cada botão.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- [oferta] -->
-    <section class="sec oferta" id="oferta" aria-labelledby="oferta-titulo">
-      <div class="wrap">
-        <div class="sec__head sec__head--center">
+        <div class="head head--center reveal">
           <p class="eyebrow">Planos</p>
-          <h2 id="oferta-titulo" class="h2">Escolha como você trabalha.</h2>
+          <h2 id="planos-titulo" class="h2">Escolha como você trabalha.</h2>
         </div>
 
-        <div class="offers">
-          <div class="offer__card offer__card--main">
-            <h3 class="offer__name">Individual · <span class="ph" data-cfg="plano">[PLANO: mensal ou vitalício]</span></h3>
-            <p class="offer__for">Pra editor, copywriter ou gestor que cria sozinho.</p>
-            <ul class="offer__list">
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Vídeos em loop a partir de uma foto, na duração que você escolher</span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Loop a partir de um vídeo seu, por menos da metade do custo</span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Você aprova o take antes de gastar o resto</span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Prova visual: presell e advertorial em qualquer idioma</span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Mockup: produto em cena e vídeos de 5 s</span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Imagens: formato, limpeza, qualidade e antes e depois</span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Fila, retomada e avisos do Windows</span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Atualizações num clique · ativação em <span class="ph" data-cfg="qtdPcs">[QTD_PCS]</span> PC(s)</span></li>
-            </ul>
-            <div class="offer__price">
-              <p class="offer__anchor">de <s class="ph" data-cfg="precoAncora">[PREÇO_ANCORA]</s></p>
-              <p class="offer__value">por <strong class="ph" data-cfg="preco">[PREÇO]</strong></p>
-              <p class="offer__inst">ou <span class="ph" data-cfg="parcelas">[PARCELAS]</span></p>
+        <div class="plans">
+          <div class="plan plan--main reveal">
+            <p class="plan__name">Individual <span class="plan__kind ph" data-cfg="plano">[PLANO: mensal ou vitalício]</span></p>
+            <p class="plan__for">Pra editor, copywriter ou gestor que cria sozinho.</p>
+            <div class="plan__price">
+              <s class="ph" data-cfg="precoAncora">[PREÇO_ANCORA]</s>
+              <strong class="ph" data-cfg="preco">[PREÇO]</strong>
+              <span>ou <span class="ph" data-cfg="parcelas">[PARCELAS]</span></span>
             </div>
-            <a class="btn btn--primary btn--lg btn--block" href="#oferta" data-cfg-href="linkCheckout" data-cta="oferta">Quero o Individual</a>
-            <p class="offer__safe"><svg class="ico"><use href="#i-lock"/></svg><span>Pagamento pela <span class="ph" data-cfg="plataformaPagamento">[PLATAFORMA_PAGAMENTO]</span>. O código de ativação chega no seu e-mail.</span></p>
+            <a class="btn btn--primary btn--lg btn--block" href="#planos" data-cfg-href="linkCheckout">Quero o Individual</a>
+            <ul class="plan__list">
+              <li><svg class="ico"><use href="#i-check"/></svg>Vídeos em loop a partir de foto ou de vídeo seu</li>
+              <li><svg class="ico"><use href="#i-check"/></svg>Prova visual, Mockup e Imagens inclusos</li>
+              <li><svg class="ico"><use href="#i-check"/></svg>Fila, retomada e avisos do Windows</li>
+              <li><svg class="ico"><use href="#i-check"/></svg>Atualizações dentro do app</li>
+              <li><svg class="ico"><use href="#i-check"/></svg>Ativação em <span class="ph" data-cfg="qtdPcs">[QTD_PCS]</span> PC(s)</li>
+            </ul>
+            <p class="plan__safe"><svg class="ico"><use href="#i-shield"/></svg><span><b><span class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</span> dias de garantia.</b> Não serviu? Devolvemos o valor do app.</span></p>
           </div>
 
-          <div class="offer__card offer__card--biz">
-            <h3 class="offer__name">Empresarial</h3>
-            <p class="offer__for">Pra agências, operações e times de Direct Response.</p>
-            <p class="offer__title">Montado pro tamanho da sua operação.</p>
-            <div class="tune" aria-hidden="true">
-              <div class="tune__row"><span>Pessoas</span><span class="tune__track"><i style="--v:.55"></i></span></div>
-              <div class="tune__row"><span>Ofertas</span><span class="tune__track"><i style="--v:.8"></i></span></div>
-              <div class="tune__row"><span>Máquinas</span><span class="tune__track"><i style="--v:.4"></i></span></div>
-            </div>
-            <ul class="offer__list">
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Tudo do Individual</span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Mais máquinas, na quantidade que o time precisa <span class="ph">[CONFIRMAR]</span></span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Liberação das máquinas centralizada pelo seu time <span class="ph">[CONFIRMAR]</span></span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Onboarding da equipe <span class="ph">[CONFIRMAR]</span></span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Suporte prioritário <span class="ph">[CONFIRMAR]</span></span></li>
-              <li><svg class="ico"><use href="#i-check"/></svg><span>Ajustes pro fluxo da operação, como prompts padrão por nicho <span class="ph">[CONFIRMAR]</span></span></li>
+          <div class="plan plan--biz reveal">
+            <p class="plan__name">Empresarial</p>
+            <p class="plan__for">Pra agências, operações e times de Direct Response.</p>
+            <div class="plan__price plan__price--biz"><strong>Sob medida</strong><span>Montado pro tamanho da sua operação.</span></div>
+            <a class="btn btn--outline btn--lg btn--block" href="#planos" data-cfg-href="linkContato"><svg class="ico"><use href="#i-chat"/></svg>Falar com a gente</a>
+            <ul class="plan__list">
+              <li><svg class="ico"><use href="#i-check"/></svg>Tudo do Individual</li>
+              <li><svg class="ico"><use href="#i-check"/></svg>Máquinas na quantidade que o time precisa</li>
+              <li><svg class="ico"><use href="#i-check"/></svg>Onboarding da equipe</li>
+              <li><svg class="ico"><use href="#i-check"/></svg>Suporte prioritário</li>
+              <li><svg class="ico"><use href="#i-check"/></svg>Ajustes pro fluxo da operação</li>
             </ul>
-            <div class="offer__price offer__price--biz"><p class="offer__value"><strong>Sob consulta</strong></p></div>
-            <a class="btn btn--outline btn--lg btn--block" href="#oferta" data-cfg-href="linkContato" data-cta="empresarial"><svg class="ico"><use href="#i-chat"/></svg>Falar com a gente</a>
-            <p class="offer__safe">Conte quantas pessoas e quantas ofertas rodam aí. A gente monta a proposta.</p>
+            <p class="plan__safe"><span class="ph">[CONFIRMAR itens do Empresarial]</span></p>
           </div>
         </div>
-        <p class="offer__req">Windows 10 ou 11 (64 bits) · internet · conta Magnific com créditos (cobrados à parte, pela Magnific)</p>
-      </div>
-    </section>
-
-    <!-- [garantia] -->
-    <section class="sec sec--tight garantia" id="garantia" aria-labelledby="garantia-titulo">
-      <div class="wrap garantia__in">
-        <div class="seal" aria-hidden="true">
-          <svg viewBox="0 0 200 200" class="seal__ring">
-            <defs><path id="sealPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
-            <text textLength="488" lengthAdjust="spacing"><textPath href="#sealPath" startOffset="0" textLength="488" lengthAdjust="spacing">garantia · garantia · garantia · garantia · </textPath></text>
-          </svg>
-          <span class="seal__core"><b class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</b><small>dias</small></span>
-        </div>
-        <div class="garantia__text">
-          <h2 id="garantia-titulo" class="h3"><span class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</span> dias pra testar.</h2>
-          <p>Instale, gere seus vídeos e use as outras ferramentas. Não serviu pro seu trabalho? Peça o reembolso em até <span class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</span> dias pela <span class="ph" data-cfg="plataformaPagamento">[PLATAFORMA_PAGAMENTO]</span> ou pelo <span class="ph" data-cfg="emailSuporte">[EMAIL_SUPORTE]</span>. Os créditos gastos na Magnific são da sua conta lá e não entram no reembolso.</p>
-          <p class="note">Vale pro plano Individual. No Empresarial, as condições entram na proposta. <span class="ph">[CONFIRMAR]</span></p>
-        </div>
+        <p class="plans__req"><svg class="ico"><use href="#i-windows"/></svg>Windows 10 ou 11 (64 bits) · internet · conta Magnific com créditos, cobrados à parte</p>
       </div>
     </section>
 
     <!-- [faq] -->
-    <section class="sec faq" id="faq" aria-labelledby="faq-titulo">
-      <div class="wrap faq__in">
-        <h2 id="faq-titulo" class="h2 faq__title">Perguntas frequentes</h2>
+    <section class="sec sec--panel" id="faq" aria-labelledby="faq-titulo">
+      <div class="wrap faq">
+        <div class="faq__head reveal">
+          <p class="eyebrow">Dúvidas</p>
+          <h2 id="faq-titulo" class="h2">Perguntas <br>frequentes</h2>
+          <p class="note">Não achou? <a class="ph" data-cfg-link="linkContato" data-cfg-label="Fale com a gente" href="#planos">[LINK_CONTATO]</a></p>
+        </div>
         <div class="faq__list">
-          <details><summary>Qual a duração do vídeo?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Você escolhe no app. O padrão é 2:30, e hoje dá pra ir de <span class="ph" data-cfg="duracaoMin">[DURAÇÃO_MIN]</span> a <span class="ph" data-cfg="duracaoMax">[DURAÇÃO_MAX]</span>. <span class="ph">[CONFIRMAR]</span></p></div></details>
-          <details><summary>Dá pra perceber que é loop?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>O app foi feito pra a volta ao começo não aparecer, e você confere antes do vídeo final. O resultado varia com a imagem: por isso você aprova o take antes de gastar o resto.</p></div></details>
-          <details><summary>O vídeo sai com voz?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Não. Sai sem áudio: é o apresentador falando como fundo, pra você pôr a narração da VSL por cima.</p></div></details>
-          <details><summary>Posso usar em anúncio?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Pode, com responsabilidade. Use só imagens que são suas ou que você tem direito de usar. Não use pra imitar uma pessoa real ou famosa, se passar por um profissional real ou inventar depoimento de cliente. Siga as regras da plataforma onde vai anunciar, inclusive a sinalização de conteúdo feito com IA quando ela for exigida.</p></div></details>
-          <details><summary>Funciona com qualquer foto?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Aceita PNG, JPG ou WebP de até 25 MB. Você escolhe Homem ou Mulher e o app cuida do resto.</p></div></details>
-          <details><summary>Quanto custa a IA?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Os créditos são da Magnific, na sua conta. Cerca de 775 por vídeo a partir de foto e 325 a partir de um vídeo seu. Cada botão mostra o custo antes do clique.</p></div></details>
-          <details><summary>Preciso de conta na Magnific?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Sim, com créditos. Você conecta pelo login no navegador. Todas as ferramentas usam essa conta.</p></div></details>
-          <details><summary>Preciso de placa de vídeo boa?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Não. A IA roda na nuvem, pela sua conta Magnific. O PC só finaliza o vídeo, um por vez, e você continua usando o computador.</p></div></details>
-          <details><summary>Funciona no Mac?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Não. É um app para Windows 10 ou 11, 64 bits.</p></div></details>
-          <details><summary>Qual a diferença entre Individual e Empresarial?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>O Individual é pra quem cria sozinho, com preço fechado e ativação em <span class="ph" data-cfg="qtdPcs">[QTD_PCS]</span> PC(s). O Empresarial é pra time: mais máquinas, onboarding e suporte prioritário, montado sob medida. Fale com a gente pelo <a class="ph" data-cfg-link="linkContato" data-cfg-label="nosso contato" href="#oferta">[LINK_CONTATO]</a>.</p></div></details>
-          <details><summary>Em quantos computadores posso usar?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>O Individual ativa <span class="ph" data-cfg="qtdPcs">[QTD_PCS]</span> PC(s). Vai trocar de computador? Fale com o <span class="ph" data-cfg="emailSuporte">[EMAIL_SUPORTE]</span> e liberamos a troca. Precisa de mais máquinas? Veja o Empresarial.</p></div></details>
-          <details><summary>É assinatura?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>O Individual é <span class="ph" data-cfg="plano">[PLANO: mensal ou vitalício]</span>. <span class="ph" data-plano="mensal">[Se mensal: renova a cada 30 dias e você cancela quando quiser.]</span> <span class="ph" data-plano="vitalicio">[Se vitalício: paga uma vez e usa sem mensalidade.]</span> Os créditos da Magnific são cobrados à parte, por ela.</p></div></details>
-          <details><summary>Como eu recebo?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Depois do pagamento, chega no seu e-mail o link de download e o código de ativação. Instala, digita o código e o app libera na hora.</p></div></details>
-          <details><summary>E se eu não gostar?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Você tem <span class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</span> dias de garantia. Peça o reembolso pela <span class="ph" data-cfg="plataformaPagamento">[PLATAFORMA_PAGAMENTO]</span> ou pelo <span class="ph" data-cfg="emailSuporte">[EMAIL_SUPORTE]</span>.</p></div></details>
-          <details><summary>O Windows mostrou um aviso ao instalar. É normal?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>É. Na primeira vez o Windows pode avisar "aplicativo desconhecido". Clique em Mais informações e depois em Executar assim mesmo. Não pede senha de administrador.</p></div></details>
+          <details><summary>Qual a duração do vídeo?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Você escolhe no app, antes de gerar, a duração do trecho em que ele vai aparecer na VSL.</p></div></details>
+          <details><summary>O vídeo sai com voz?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Não. Sai sem áudio: é a pessoa falando como imagem, pra você pôr a narração da VSL por cima.</p></div></details>
+          <details><summary>Funciona com qualquer foto?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Aceita PNG, JPG ou WebP, e também vídeo (MP4, MOV, WebM). Funciona melhor com a pessoa de frente e bem iluminada. Como o resultado varia com a imagem, você aprova a prévia antes do vídeo final.</p></div></details>
+          <details><summary>Quanto custa gerar?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>A geração usa créditos da sua conta Magnific, cobrados à parte por ela. O app mostra o custo em cada botão antes do clique, e gerar a partir de um vídeo seu sai mais barato que a partir de foto.</p></div></details>
+          <details><summary>Preciso de um PC potente?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Não. A IA roda na nuvem. O PC só finaliza o vídeo, um por vez e em prioridade baixa, e você continua editando. É um app para Windows 10 ou 11, 64 bits. Não funciona no Mac.</p></div></details>
+          <details><summary>Posso usar em anúncio?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Pode, com responsabilidade. Use imagens que são suas ou que você tem direito de usar. Não use pra imitar uma pessoa real ou famosa, se passar por um profissional real ou inventar depoimento. Siga as regras da plataforma, inclusive a sinalização de conteúdo feito com IA quando for exigida.</p></div></details>
+          <details><summary>Como eu recebo?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Depois do pagamento pela <span class="ph" data-cfg="plataformaPagamento">[PLATAFORMA_PAGAMENTO]</span>, chegam no seu e-mail o link de download e o código de ativação. Instala, digita o código e começa.</p></div></details>
+          <details><summary>E se eu não gostar?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>Você tem <span class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</span> dias de garantia no plano Individual. Peça o reembolso pela plataforma ou pelo <span class="ph" data-cfg="emailSuporte">[EMAIL_SUPORTE]</span>. Os créditos gastos na Magnific são da sua conta lá e não entram no reembolso.</p></div></details>
+          <details><summary>Qual a diferença entre Individual e Empresarial?<svg class="ico"><use href="#i-plus"/></svg></summary><div class="faq__a"><p>O Individual é pra quem cria sozinho, com preço fechado. O Empresarial é pra time: mais máquinas, onboarding e suporte prioritário, montado sob medida.</p></div></details>
         </div>
       </div>
     </section>
 
     <!-- [cta-final] -->
     <section class="final" id="cta-final" aria-labelledby="final-titulo">
-      <div class="final__bg" aria-hidden="true">
-        <div class="final__wall">
-          <img src="assets/exemplos/loops/ruiva.jpg" width="480" height="854" alt="" loading="lazy" decoding="async">
-          <img src="assets/exemplos/loops/cirurgiao.jpg" width="480" height="864" alt="" loading="lazy" decoding="async">
-          <img src="assets/exemplos/loops/homem-oculos.jpg" width="480" height="864" alt="" loading="lazy" decoding="async">
-          <img src="assets/exemplos/loops/mae-bebe.jpg" width="480" height="854" alt="" loading="lazy" decoding="async">
-          <img src="assets/exemplos/loops/fazenda.jpg" width="480" height="854" alt="" loading="lazy" decoding="async">
-          <img src="assets/exemplos/loops/loira.jpg" width="480" height="854" alt="" loading="lazy" decoding="async">
-          <img src="assets/exemplos/loops/homem-camiseta.jpg" width="480" height="850" alt="" loading="lazy" decoding="async">
-        </div>
-        <div class="hero__glow hero__glow--final"></div>
+      <div class="final__strip" aria-hidden="true">
+        <img src="assets/exemplos/loops/fazenda.jpg" width="480" height="854" alt="" loading="lazy">
+        <img src="assets/exemplos/loops/cirurgiao.jpg" width="480" height="864" alt="" loading="lazy">
+        <img src="assets/exemplos/loops/mae-bebe.jpg" width="480" height="854" alt="" loading="lazy">
+        <img src="assets/exemplos/medico-foto.webp" width="720" height="1280" alt="" loading="lazy">
+        <img src="assets/exemplos/loops/ruiva.jpg" width="480" height="854" alt="" loading="lazy">
+        <img src="assets/exemplos/loops/homem-oculos.jpg" width="480" height="864" alt="" loading="lazy">
+        <img src="assets/exemplos/loops/loira.jpg" width="480" height="854" alt="" loading="lazy">
       </div>
-      <div class="wrap final__in">
-        <img class="final__icon" src="assets/img/icone.png" width="96" height="96" alt="" loading="lazy">
-        <h2 id="final-titulo" class="final__title">O próximo criativo começa com uma foto.</h2>
-        <p class="lead">O rosto da VSL, a presell e o produto em cena. Tudo no mesmo app.</p>
+      <div class="wrap final__in reveal">
+        <h2 id="final-titulo" class="h2">O próximo criativo <br>começa com uma foto.</h2>
         <div class="final__ctas">
-          <a class="btn btn--primary btn--lg" href="#oferta" data-cfg-href="linkCheckout" data-cta="final">Quero o Individual</a>
-          <a class="btn btn--outline btn--lg" href="#oferta" data-cfg-href="linkContato" data-cta="final-biz">Sou agência ou operação</a>
+          <a class="btn btn--primary btn--lg" href="#planos" data-cfg-href="linkCheckout">Quero o Individual</a>
+          <a class="btn btn--outline btn--lg" href="#planos" data-cfg-href="linkContato">Sou agência ou operação</a>
         </div>
-        <ul class="checks checks--center">
-          <li><svg class="ico"><use href="#i-check"/></svg><span>Garantia de <span class="ph" data-cfg="diasGarantia">[DIAS_GARANTIA]</span> dias</span></li>
-          <li><svg class="ico"><use href="#i-check"/></svg><span>Ativação na hora</span></li>
-          <li><svg class="ico"><use href="#i-check"/></svg><span>Custo sempre visível</span></li>
-        </ul>
       </div>
     </section>
   </main>
 
   <!-- [rodape] -->
-  <footer class="foot" id="rodape">
+  <footer class="foot">
     <div class="wrap foot__in">
-      <p class="foot__line"><img src="assets/img/icone-64.webp" width="20" height="20" alt="" loading="lazy">LoopVideo · app para Windows que transforma uma foto no rosto da sua VSL, mais presell, mockup e imagens pro criativo.</p>
+      <p class="foot__brand"><img src="assets/img/icone-64.webp" width="20" height="20" alt="" loading="lazy">LoopVideo</p>
       <p class="foot__meta">
         <span>Suporte: <a class="ph" data-cfg="emailSuporte" data-cfg-mailto href="#">[EMAIL_SUPORTE]</a></span>
-        <span>Empresas: <a class="ph" data-cfg-link="linkContato" data-cfg-label="falar com a gente" href="#oferta">[LINK_CONTATO]</a></span>
         <span>Desenvolvido por <a href="https://rafaguiar-dev.github.io/" rel="noopener">rafaguiar.dev</a></span>
-        <a class="foot__top" href="#topo"><svg class="ico"><use href="#i-up"/></svg>Voltar ao começo</a>
+        <a href="#topo"><svg class="ico"><use href="#i-up"/></svg>Topo</a>
       </p>
     </div>
   </footer>

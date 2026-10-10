@@ -1,5 +1,8 @@
 # LoopVideo · copy da página de vendas (versão 2)
 
+> **Histórico.** A versão 3 (out/2026) refez a estrutura no padrão de páginas de SaaS/plugin e o texto atual está
+> direto no `index.html`. A pesquisa de Direct Response no fim deste arquivo continua valendo.
+
 > Fonte dos fatos: README público, Guia do usuário e o app (`ui/index.html`). Pesquisa de mercado no fim do arquivo.
 > Tudo entre colchetes (`[ASSIM]`) é placeholder. `[CONFIRMAR]` = o dono precisa validar antes de publicar.
 > Convenção: `|` separa itens de uma lista curta (chips, menu). Listas longas vêm em linhas com `-`.

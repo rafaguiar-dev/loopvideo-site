@@ -1,6 +1,6 @@
 # LoopVideo · site de vendas
 
-Página de vendas do LoopVideo (app para Windows que transforma uma foto num vídeo da pessoa falando, em loop de 2:30).
+Página de vendas do LoopVideo (app para Windows que transforma uma foto num vídeo da pessoa falando, em loop, sem emenda à vista).
 Site estático: `index.html` + `assets/` (CSS, JS, fontes, imagens e vídeos). Sem build.
 
 **Status: prévia online em https://rafaguiar-dev.github.io/loopvideo-site/ (GitHub Pages, `noindex`, com placeholders de oferta). Ainda não é o site oficial.**
@@ -21,43 +21,42 @@ Tudo fica no objeto `CONFIG`, no topo de `assets/js/main.js`:
 
 | campo | onde aparece |
 | --- | --- |
-| `plano` | nome do plano Individual e resposta da FAQ "É assinatura?" (use "mensal" ou "vitalício") |
+| `plano` | ao lado do nome do plano Individual (ex.: "mensal" ou "vitalício") |
 | `preco`, `precoAncora`, `parcelas` | card Individual |
-| `qtdPcs` | card Individual e FAQ |
-| `diasGarantia` | garantia, FAQ e chamada final |
-| `linkCheckout` | botões "Quero o Individual" (oferta e chamada final); os botões do topo levam até a oferta |
-| `linkContato` | botão "Falar com a gente" do Empresarial, "Sou agência ou operação", FAQ e rodapé |
-| `plataformaPagamento`, `emailSuporte` | oferta, garantia, FAQ e rodapé |
-| `duracaoMin`, `duracaoMax` | FAQ "Qual a duração do vídeo?" |
+| `qtdPcs` | card Individual |
+| `diasGarantia` | card Individual e FAQ |
+| `linkCheckout` | botões "Quero o Individual" (planos e chamada final); os botões "Ver planos" levam até os planos |
+| `linkContato` | "Falar com a gente" do Empresarial, "Sou agência ou operação" e "Não achou?" da FAQ |
+| `plataformaPagamento`, `emailSuporte` | FAQ e rodapé |
 
-Enquanto um campo estiver entre colchetes (`[PREÇO]`), ele aparece destacado em amarelo na página. Os itens
-`[CONFIRMAR]` (Empresarial, custos, garantia e FAQ) também aparecem em amarelo: valide e apague do `index.html`.
+Enquanto um campo estiver entre colchetes (`[PREÇO]`), ele aparece destacado em amarelo na página. O item
+`[CONFIRMAR itens do Empresarial]` também: valide a lista do card e apague do `index.html`.
 
-Os personagens que se revezam no celular do topo ficam em `HERO_LOOPS`, logo abaixo do `CONFIG`.
+O texto do exemplo de Prova visual (nos 4 idiomas) fica em `ARTIGO`, logo abaixo do `CONFIG`.
 
-Antes de publicar: troque `og:image`/`twitter:image` no `<head>` pela URL absoluta do site (redes sociais não leem
-caminho relativo) e, se quiser, adicione `<link rel="canonical">`.
+## Mídia (o que é real e o que confirmar)
 
-## Mídia que precisa de autorização
-
-- `assets/exemplos/mockup/` (cenas e vídeos do frasco e do pote): são saídas reais de produtos de clientes.
-  **Peça autorização ou troque antes de publicar.** Ficam num bloco só no `index.html` (procure
-  `MÍDIA DO MOCKUP`) e aparecem também na seção `esteira` e na `prova-visual` (`cena-01`, `cena-04`, `cena-06`, `cena-10`, `video-03`).
-- `assets/exemplos/loops/` e o exemplo do especialista: vídeos gerados pelo app. A página diz que são personagens
-  criados por IA; mantenha só se for verdade pra todos.
-- `assets/exemplos/imagens/loira-antes.webp`: montagem feita pro site (legenda e marca d'água fictícias por cima do pôster).
+- `assets/exemplos/medico-*` e `assets/exemplos/loops/`: vídeos reais gerados pelo app. A página diz que os
+  personagens foram criados por IA; mantenha só se for verdade pra todos.
+- `assets/exemplos/campanha/`: saída real da aba Mockup (Melt Peak): a foto do pote que entrou, as cenas e os vídeos.
+  Produto de cliente, liberado pelo dono pra aparecer.
+- `assets/exemplos/imagens/textos-*`: entrada e saída reais de "Remover textos" (aba Imagens). Confirme que a pessoa
+  da imagem é personagem de IA.
+- Prova visual: o exemplo é HTML com veículo fictício ("Vida & Bem-estar"), porque as saídas reais usam nomes de
+  veículos de verdade e não podem ir pra um site público.
+- A janela do app em "Como funciona" é uma ilustração em HTML fiel à interface, simplificada de propósito (sem custos,
+  modelos nem detalhes internos).
 
 ## Estrutura
 
-- `index.html`: a página, seções na ordem do `COPY.md` (ids iguais).
-- `COPY.md`: texto da página e notas da oferta.
+- `index.html`: a página. Seções: hero, público, exemplos, como funciona, onde ele trabalha, ferramentas (Mockup,
+  Prova visual, Imagens), planos, FAQ, chamada final e rodapé.
 - `assets/css/site.css`: identidade "Noite infinita" (cores e curvas do app).
-- `assets/js/main.js`: `CONFIG`, animações (GSAP + ScrollTrigger via CDN), vídeos sob demanda, comparador e abas.
+- `assets/js/main.js`: `CONFIG`, vídeos sob demanda (tocam só quando visíveis; com "reduzir movimento" nada toca
+  sozinho), passos do "Como funciona", abas do Mockup e idiomas da Prova visual. Sem dependências externas.
 - `assets/fonts/`: Geist e Geist Mono (licença OFL em `assets/fonts/OFL.txt`).
-- `assets/video/`: vídeo de abertura feito com HyperFrames (MP4 H.264 + WebM) e pôster.
-- `assets/exemplos/`: exemplos reais (o especialista, a parede de loops, as saídas do Mockup e a imagem da aba Imagens).
-- `motion/`: projetos HyperFrames dos vídeos. Para renderizar de novo, copie as entradas e rode `npm run render`
-  dentro de cada pasta:
-  - `motion/hero`: `assets/exemplos/medico-loop.mp4` → `motion/hero/assets/` (a foto já está lá).
-  - `motion/og`: imagem de compartilhamento (`npx hyperframes snapshot --at 0.5`).
-  Depois, recomprima com ffmpeg (ex.: `-c:v libx264 -crf 27 -movflags +faststart` e `-c:v libvpx-vp9 -crf 40 -b:v 0`).
+- `assets/exemplos/`: os exemplos reais.
+- `COPY.md`: copy e pesquisa da versão 2 (histórico; o texto atual está no `index.html`).
+- `_review/` (fora do git): auditoria do Codex e pesquisa de referências que guiaram a versão 3.
+- `motion/`: projetos HyperFrames. `motion/og` gera a imagem de compartilhamento (`npx hyperframes snapshot --at 0.5`);
+  `motion/hero` era o vídeo de abertura da versão 2 e não é mais usado pela página.
