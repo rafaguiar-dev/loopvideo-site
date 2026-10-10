@@ -19,3 +19,6 @@ motion/*/AGENTS.md
 Thumbs.db
 desktop.ini
 *.log
+
+# revisões dos agentes (Codex/Claude) — material de trabalho
+_review/
